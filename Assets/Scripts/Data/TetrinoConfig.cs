@@ -8,8 +8,8 @@ namespace JP.Mytris.Data
     [CreateAssetMenu(menuName = "Data/TetrinoConfig", fileName = "TetrinoConfig")]
     public class TetrinoConfig : ScriptableObject
     {
-        public bool[] Pattern = new bool[16];
+        public bool[] Pattern = new bool[DataHelper.TETRINO_DIMENSION * DataHelper.TETRINO_DIMENSION];
 
-        public BlockVisualizer VisualizerPrefab;
+        public BlockConfig BlockConfig;
     }
 }

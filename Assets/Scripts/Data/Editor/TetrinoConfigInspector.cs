@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace JP.Mytris.Data
@@ -8,16 +6,12 @@ namespace JP.Mytris.Data
     [CustomEditor(typeof(TetrinoConfig))]
     public class TetrinoConfigInspector : Editor
     {
-        TetrinoConfig tetrinoConfig;
-
+        private TetrinoConfig tetrinoConfig;
         private const int CELL_SIZE = 10;
-
-        private int patternDimensions;
 
         public void OnEnable()
         {
             tetrinoConfig = target as TetrinoConfig;
-            patternDimensions = (int)Mathf.Sqrt(tetrinoConfig.Pattern.Length);
         }
 
         public override void OnInspectorGUI()
@@ -27,9 +21,9 @@ namespace JP.Mytris.Data
             Rect toggleRect = new Rect(0,0,CELL_SIZE,CELL_SIZE);
 
             int i = 0;
-            for(int y=0; y < patternDimensions; y++)
+            for(int y=0; y < DataHelper.TETRINO_DIMENSION; y++)
             {
-                for(int x=0; x < patternDimensions; x++)
+                for(int x=0; x < DataHelper.TETRINO_DIMENSION; x++)
                 {
                     toggleRect.x = x * CELL_SIZE + xOffset; toggleRect.y = y* CELL_SIZE + yOffset;
                     tetrinoConfig.Pattern[i] = EditorGUI.Toggle(toggleRect, tetrinoConfig.Pattern[i]);
@@ -37,7 +31,7 @@ namespace JP.Mytris.Data
                 }
             }
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("VisualizerPrefab"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("BlockConfig"));
         }
     }
 }
