@@ -19,7 +19,11 @@ namespace JP.Mytrix.Gameplay
             this.x = x;
             this.y = y;
             Config = config;
+            
+            Blocks = new List<Block>();
 
+            patternInstance = new bool[DataHelper.TETRINO_DIMENSION * DataHelper.TETRINO_DIMENSION];
+            
             for (int i = 0; i < config.Pattern.Length; i++)
             {
                 if (config.Pattern[i])
@@ -40,29 +44,39 @@ namespace JP.Mytrix.Gameplay
             this.y += y;
         }
         
-        private void Rotate(TetrinoRotation rotation)
+        public void Rotate(TetrinoRotation rotation)
         {
-            int i=0;
-            for (int y = 0; y < DataHelper.TETRINO_DIMENSION; y++)
+            for (int i = 0; i < Config.Pattern.Length; i++)
             {
-                for (int x = 0; x < DataHelper.TETRINO_DIMENSION; x++)
-                {
-                    i++;
-                    patternInstance[GetIndex(x,y,rotation)] = Config.Pattern[i];
+                int x = i % DataHelper.TETRINO_DIMENSION;
+                int y = i / DataHelper.TETRINO_DIMENSION;
+                
+                int rotatedIndex = GetIndex(x, y, rotation);
+                patternInstance[rotatedIndex] = Config.Pattern[i];
+            }
 
-                    Blocks[i].SetPosition(x + this.x, y + this.y);
+            int blockIndex = 0;
+            for (int i = 0; i < patternInstance.Length; i++)
+            {
+                if (patternInstance[i])
+                {
+                    Blocks[blockIndex].SetPosition(i % DataHelper.TETRINO_DIMENSION,
+                        i / DataHelper.TETRINO_DIMENSION);
+                    blockIndex++;
                 }
             }
         }
         
         private int GetIndex(int x, int y, TetrinoRotation rotation)
         {
+            int d = DataHelper.TETRINO_DIMENSION;
+            
             switch (rotation)
             {
-                case TetrinoRotation.Up0: return y * 4 + x;
-                case TetrinoRotation.Right90: return 12 + y - (x * 4);
-                case TetrinoRotation.Down180: return 15 - (y * 4) - x;
-                case TetrinoRotation.Left270: return 3 - y + (x * 4);
+                case TetrinoRotation.Up0: return y * d + x;
+                case TetrinoRotation.Right90: return (d * (d-1)) + y - (x * d);
+                case TetrinoRotation.Down180: return ((d*d)-1) - (y * d) - x;
+                case TetrinoRotation.Left270: return (d-1) - y + (x * d);
             }
 
             return 0;

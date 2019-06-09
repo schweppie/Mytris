@@ -1,4 +1,5 @@
 using JP.Mytris.Data;
+using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
 {
@@ -22,6 +23,8 @@ namespace JP.Mytrix.Gameplay
         {
             X = x;
             Y = y;
+            
+            Debug.Log("SetPosition");
 
             DispatchPositionUpdatedEvent();
         }

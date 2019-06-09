@@ -11,5 +11,7 @@ namespace JP.Mytris.Data
         public bool[] Pattern = new bool[DataHelper.TETRINO_DIMENSION * DataHelper.TETRINO_DIMENSION];
 
         public BlockConfig BlockConfig;
+
+        public TetrinoVisualizer TetrinoVisualizer;
     }
 }

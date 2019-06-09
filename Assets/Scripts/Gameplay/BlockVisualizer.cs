@@ -6,6 +6,8 @@ namespace JP.Mytrix.Gameplay
     {
         private Block block;
         
+        private Vector3 targetPosition;
+        
         public void Setup(Block block)
         {
             this.block = block;
@@ -16,8 +18,19 @@ namespace JP.Mytrix.Gameplay
 
         private void OnPositionUpdatedEvent(int x, int y)
         {
-            transform.position = new Vector3(block.X, block.Y, 0);
+            Debug.Log("OnPositionUpdatedEvent");
+            
+            //transform.position = new Vector3(block.X, block.Y, 0);
+
+            targetPosition.x = x;
+            targetPosition.y = y;
         }
+        
+        private void Update()
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
+        }
+        
 
         private void OnDestroy()
         {

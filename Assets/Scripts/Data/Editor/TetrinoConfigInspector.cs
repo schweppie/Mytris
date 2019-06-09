@@ -17,7 +17,7 @@ namespace JP.Mytris.Data
         public override void OnInspectorGUI()
         {
             int xOffset = 16;
-            int yOffset = 80;
+            int yOffset = 100;
             Rect toggleRect = new Rect(0,0,CELL_SIZE,CELL_SIZE);
 
             int i = 0;
@@ -32,6 +32,8 @@ namespace JP.Mytris.Data
             }
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("BlockConfig"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("TetrinoVisualizer"));
+            
         }
     }
 }
