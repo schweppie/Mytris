@@ -17,6 +17,8 @@ namespace JP.Mytrix.Gameplay
             X = x;
             Y = y;
             Config = config;
+
+            Debug.Log("creating block " + x + ", " + y);
         }
 
         public void SetPosition(int x, int y)

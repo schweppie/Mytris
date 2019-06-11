@@ -29,11 +29,17 @@ namespace JP.Mytrix.Gameplay
 
         private void Update()
         {
+            if (Input.GetKeyUp(KeyCode.W))
+                tetrino.Move(0,1);
             if (Input.GetKeyUp(KeyCode.S))
-            {
-                angle++;
-                tetrino.Rotate((TetrinoRotation)(angle%4));
-            }
+                tetrino.Move(0,-1);
+
+            if (Input.GetKeyUp(KeyCode.D))
+                tetrino.Move(-1,0);
+
+            if (Input.GetKeyUp(KeyCode.A))
+                tetrino.Move(1,0);
+
         }
     }
 }

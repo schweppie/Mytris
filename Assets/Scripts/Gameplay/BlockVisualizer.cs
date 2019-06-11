@@ -14,13 +14,13 @@ namespace JP.Mytrix.Gameplay
             
             transform.position = new Vector3(block.X, block.Y, 0);
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
+
+            targetPosition = transform.position;
         }
 
         private void OnPositionUpdatedEvent(int x, int y)
         {
-            Debug.Log("OnPositionUpdatedEvent");
-            
-            //transform.position = new Vector3(block.X, block.Y, 0);
+            Debug.Log("OnPositionUpdatedEvent " + x + ", " + y);
 
             targetPosition.x = x;
             targetPosition.y = y;
