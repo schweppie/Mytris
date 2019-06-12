@@ -74,11 +74,7 @@ namespace JP.Mytrix.Gameplay
             this.x += x;
             this.y += y;
 
-            for(int i=0; i< Blocks.Count; i++)
-            {
-                Block block = Blocks[i];
-                block.SetPosition(block.X + x, block.Y + y);
-            }
+            UpdateTetrino();
         }
     }
 }
