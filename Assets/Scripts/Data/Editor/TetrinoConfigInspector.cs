@@ -7,70 +7,50 @@ namespace JP.Mytris.Data
     public class TetrinoConfigInspector : Editor
     {
         private TetrinoConfig tetrinoConfig;
-        private const int CELL_SIZE = 10;
-        private const int PATTERN_MARGIN = 50;
-
-        private float yDrawOffset;
-
-        private int width;
-        private int height;
 
         public void OnEnable()
         {
-            tetrinoConfig = target as TetrinoConfig;
-            
-            width = tetrinoConfig.PatternWidth;
-            height = tetrinoConfig.PatternHeight;
+            tetrinoConfig = (TetrinoConfig)target;
         }
 
         public override void OnInspectorGUI()
         {
+            
             EditorGUILayout.PropertyField(serializedObject.FindProperty("BlockConfig"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("TetrinoVisualizer"));
 
-
-            height = Mathf.Max(1,EditorGUILayout.IntField("Height", height));
-            width = Mathf.Max(1,EditorGUILayout.IntField("Width", width));
-            
-            if(GUILayout.Button("Initialize"))
-            {
-                if(EditorUtility.DisplayDialog("Warning", "Reinitialize pattern? Current data will be lost.", "Ok", "Cancel"))
-                {
-                    tetrinoConfig.PatternWidth = width;
-                    tetrinoConfig.PatternHeight = height;
-                    tetrinoConfig.InitializePatterns();
-                }
-            }                
-            
-            yDrawOffset = 100;
-
-            for(int i=0; i< tetrinoConfig.Patterns.Count; i++)
-            {
-                yDrawOffset += tetrinoConfig.PatternHeight * CELL_SIZE + PATTERN_MARGIN;
-                DrawPattern(i);
-            }
+            GUILayout.BeginHorizontal();
 
             if(GUILayout.Button("Add"))
                 tetrinoConfig.AddPattern();
+
+            if(GUILayout.Button("Remove"))
+                tetrinoConfig.RemovePattern(tetrinoConfig.Patterns.Count-1);
+
+            GUILayout.EndHorizontal();
+
+            for(int i=0; i< tetrinoConfig.Patterns.Count; i++)
+            {
+                DrawPattern(i);
+            }
         }
 
-        private void DrawPattern(int index)
+        private void DrawPattern(int i)
         {
-            Rect toggleRect = new Rect(0,0,CELL_SIZE,CELL_SIZE);
+            TetrinoPattern pattern = tetrinoConfig.Patterns[i];
 
-            int i = 0;
+            GUILayout.Label(" Pattern " + i );
+
             for(int y=0; y < tetrinoConfig.PatternHeight; y++)
             {
-                for(int x=0; x < tetrinoConfig.PatternWidth; x++)
+                GUILayout.BeginHorizontal();
+                for(int x=0; x< tetrinoConfig.PatternWidth; x++)
                 {
-                    toggleRect.x = x * CELL_SIZE + 16; toggleRect.y = y* CELL_SIZE + yDrawOffset;
-                    tetrinoConfig.Patterns[index][x,y] = EditorGUI.Toggle(toggleRect, tetrinoConfig.Patterns[index][x,y]);
-                    i++;
+                    pattern.SetValue(x,y,GUILayout.Toggle(pattern.GetValue(x,y), ""));
                 }
+                GUILayout.EndHorizontal();
             }
 
-            if(GUI.Button(new Rect((CELL_SIZE + 16) * tetrinoConfig.PatternWidth  + 50, yDrawOffset, 50, 16), "X"))
-                tetrinoConfig.RemovePattern(index);
         }
     }
 }

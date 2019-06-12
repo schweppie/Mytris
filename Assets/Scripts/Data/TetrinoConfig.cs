@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using JP.Mytrix.Gameplay;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 namespace JP.Mytris.Data
 {
     [CreateAssetMenu(menuName = "Data/TetrinoConfig", fileName = "TetrinoConfig")]
+    [Serializable]
     public class TetrinoConfig : ScriptableObject
     {
         public BlockConfig BlockConfig;
@@ -15,24 +17,23 @@ namespace JP.Mytris.Data
         public int PatternWidth = 5;
         public int PatternHeight = 5;
 
-        public List<bool[,]> Patterns = new List<bool[,]>();
 
-        public void InitializePatterns()
+        [SerializeField]
+        private List<TetrinoPattern> patterns = new List<TetrinoPattern>();
+
+        public List<TetrinoPattern> Patterns
         {
-            Patterns = new List<bool[,]>();
-
-            for(int i=0; i < 1; i++)
-                Patterns.Add(new bool[PatternWidth, PatternHeight]);
+            get{ return patterns;}
         }
 
         public void AddPattern()
         {
-            Patterns.Add(new bool[PatternWidth, PatternHeight]);
+            patterns.Add(new TetrinoPattern(5,5));
         }
 
         public void RemovePattern(int index)
         {
-            Patterns.RemoveAt(index);
+            patterns.RemoveAt(index);
         }
     }
 }
