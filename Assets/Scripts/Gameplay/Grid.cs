@@ -43,25 +43,25 @@ namespace JP.Mytrix.Gameplay
             }
         }
 
-        public bool CanTetrinoFit(Tetrino tetrino)
+        public bool CanTetrinoFit(Tetrino tetrino, int x, int y, int rotationIndex)
         {
-            TetrinoPattern pattern = tetrino.Pattern;
+            TetrinoPattern pattern = tetrino.Config.Patterns[rotationIndex % tetrino.Config.Patterns.Count];
 
-            for(int gridy = 0; gridy < height; gridy++)
+            bool canfit = true;
+
+            for(int py = 0; py < pattern.Height; py++)
             {
-                for(int gridx = 0; gridx < width; gridx++)
+                for(int px =0; px < pattern.Width; px++)
                 {
-                    for(int ty =0 ; ty < pattern.Height; ty++)
+                    if(x + px < 0 || x + px > width-1 || y + py < 0 || y + py > height-1)
                     {
-                        for(int tx = 0; tx < pattern.Width; tx++)
-                        {
-
-                        }
+                        if(pattern.GetValue(px,py))
+                            canfit = false;
                     }
                 }
             }
 
-            return true;
+            return canfit;
         }
 
         public void AddTetrino(Tetrino tetrino)

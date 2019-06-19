@@ -17,7 +17,7 @@ namespace JP.Mytrix.Gameplay
 
         public List<Block> Blocks { get; private set; }
         
-        private int patternIndex = 0;
+        public int PatternIndex {get ; private set;}
 
         public Tetrino(int x, int y, TetrinoConfig config)
         {
@@ -45,6 +45,7 @@ namespace JP.Mytrix.Gameplay
 
         public void DebugDraw()
         {
+
             for(int y = 0; y < pattern.Height; y++)
             {
                 for(int x = 0; x < pattern.Width; x++)
@@ -63,8 +64,17 @@ namespace JP.Mytrix.Gameplay
                     Debug.DrawLine(p3, p4, Color.red);
                 }
             }
-        }
 
+            Vector3 pt1 = new Vector3(X, Y, 0);
+            Vector3 pt2 = new Vector3(X + pattern.Width, Y, 0);
+            Vector3 pt3 = new Vector3(X, Y + pattern.Height, 0);
+            Vector3 pt4 = new Vector3(X + pattern.Width, Y + pattern.Height, 0);;                    
+
+            Debug.DrawLine(pt1, pt2, Color.green);
+            Debug.DrawLine(pt1, pt3, Color.green);
+            Debug.DrawLine(pt2, pt4, Color.green);
+            Debug.DrawLine(pt3, pt4, Color.green);
+        }
 
         private void UpdateTetrino()
         {
@@ -86,12 +96,12 @@ namespace JP.Mytrix.Gameplay
 
         private void PopulatePattern()
         {
-            pattern = Config.Patterns[patternIndex % Config.Patterns.Count];
+            pattern = Config.Patterns[PatternIndex % Config.Patterns.Count];
         }
 
         public void Rotate()
         {
-            patternIndex = (patternIndex + 1) % Config.Patterns.Count;
+            PatternIndex = (PatternIndex + 1) % Config.Patterns.Count;
             UpdateTetrino();
         }
 

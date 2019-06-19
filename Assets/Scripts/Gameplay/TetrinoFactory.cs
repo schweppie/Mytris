@@ -34,16 +34,16 @@ namespace JP.Mytrix.Gameplay
 
             activeTetrino.DebugDraw();
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1))
                 activeTetrino.Rotate();
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y + 1, activeTetrino.PatternIndex))
                 activeTetrino.Move(0,1);
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y - 1, activeTetrino.PatternIndex))
                 activeTetrino.Move(0,-1);
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X + 1, activeTetrino.Y, activeTetrino.PatternIndex))
                 activeTetrino.Move(1,0);
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X - 1, activeTetrino.Y, activeTetrino.PatternIndex))
                 activeTetrino.Move(-1,0);
         }
     }
