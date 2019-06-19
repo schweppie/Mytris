@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfde2100671f1740b2d4162036f06f4, type: 3}
+  m_Name: sTetrinoConfig
+  m_EditorClassIdentifier: 
+  BlockConfig: {fileID: 11400000, guid: cd800b487373d8346a9b8ef8d8c0782f, type: 2}
+  TetrinoVisualizer: {fileID: 7647352359768446191, guid: 6d55d0c526f664544bdd30c0ea2cfae3,
+    type: 3}
+  PatternWidth: 5
+  PatternHeight: 5
+  patterns:
+  - data: 00000101000001010000000000000000000000000000000000
+  - data: 00010000000001010000000001000000000000000000000000

@@ -14,6 +14,11 @@ namespace JP.Mytris.Data
             this.width = width;
         }
 
+        public void ForceInitialize(int width)
+        {
+            this.width = width;
+        }
+
         public void SetValue(int x, int y, bool value)
         {
             data[ y * width + x] = value;

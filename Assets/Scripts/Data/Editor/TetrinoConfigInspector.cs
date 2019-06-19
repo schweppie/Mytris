@@ -41,12 +41,14 @@ namespace JP.Mytris.Data
 
             GUILayout.Label(" Pattern " + i );
 
+            pattern.ForceInitialize(tetrinoConfig.PatternWidth);
+
             for(int y=0; y < tetrinoConfig.PatternHeight; y++)
             {
                 GUILayout.BeginHorizontal();
                 for(int x=0; x< tetrinoConfig.PatternWidth; x++)
                 {
-                    pattern.SetValue(x,y,GUILayout.Toggle(pattern.GetValue(x,y), ""));
+                    pattern.SetValue(x,y, GUILayout.Toggle(pattern.GetValue(x,y), ""));
                 }
                 GUILayout.EndHorizontal();
             }
