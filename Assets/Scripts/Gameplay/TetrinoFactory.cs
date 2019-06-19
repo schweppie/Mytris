@@ -7,13 +7,15 @@ namespace JP.Mytrix.Gameplay
     {
         public TetrinoConfig config;
 
-        public Tetrino tetrino;
+        public Tetrino activeTetrino;
 
         private int angle = 0;
         
+        public static Grid Grid = new Grid(10,10);
+
         public Tetrino SpawnTetrino()
         {
-            Tetrino tetrino = new Tetrino(0,0, config);
+            Tetrino tetrino = new Tetrino(5,5, config);
             TetrinoVisualizer instance = Instantiate(config.TetrinoVisualizer);
             
             instance.Setup(tetrino);
@@ -23,21 +25,26 @@ namespace JP.Mytrix.Gameplay
 
         private void Awake()
         {
-            tetrino = SpawnTetrino();
+            activeTetrino = SpawnTetrino();
         }
-
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.W))
-                tetrino.Rotate();
+            Grid.DebugDraw();
 
+            activeTetrino.DebugDraw();
+
+            if (Input.GetKeyDown(KeyCode.E))
+                activeTetrino.Rotate();
+
+            if (Input.GetKeyDown(KeyCode.W))
+                activeTetrino.Move(0,1);
             if (Input.GetKeyDown(KeyCode.S))
-                tetrino.Move(0,-1);
+                activeTetrino.Move(0,-1);
             if (Input.GetKeyDown(KeyCode.D))
-                tetrino.Move(1,0);
+                activeTetrino.Move(1,0);
             if (Input.GetKeyDown(KeyCode.A))
-                tetrino.Move(-1,0);
+                activeTetrino.Move(-1,0);
         }
     }
 }

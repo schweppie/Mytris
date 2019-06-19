@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JP.Mytris.Data;
+using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
 {
@@ -8,19 +9,20 @@ namespace JP.Mytrix.Gameplay
     {
         public TetrinoConfig Config { get; private set; }
 
-        private int x;
-        private int y;
+        public int X {get; private set; } 
+        public int Y {get; private set;}
 
         private TetrinoPattern pattern;
+        public TetrinoPattern Pattern { get{ return pattern; }}
 
         public List<Block> Blocks { get; private set; }
         
         private int patternIndex = 0;
 
-        public Tetrino(int px, int py, TetrinoConfig config)
+        public Tetrino(int x, int y, TetrinoConfig config)
         {
-            this.x = px;
-            this.y = py;
+            X = x;
+            Y = y;
             Config = config;
             
             Blocks = new List<Block>();
@@ -34,11 +36,35 @@ namespace JP.Mytrix.Gameplay
                     if(!pattern.GetValue(bx,by))
                         continue;
 
-                    Block block = new Block(bx + px, by + py, Config.BlockConfig);
+                    Block block = new Block(bx + x, by + y, Config.BlockConfig);
                     Blocks.Add(block);
                 }
             }
         }
+
+
+        public void DebugDraw()
+        {
+            for(int y = 0; y < pattern.Height; y++)
+            {
+                for(int x = 0; x < pattern.Width; x++)
+                {
+                    if(!pattern.GetValue(x,y))
+                        continue;
+
+                    Vector3 p1 = new Vector3(x + X, y + Y, 0);
+                    Vector3 p2 = new Vector3(x+1+ X, y+ Y);
+                    Vector3 p3 = new Vector3(x+ X, y+1+ Y);
+                    Vector3 p4 = new Vector3(x+1+ X, y+1+ Y);;                    
+
+                    Debug.DrawLine(p1, p2, Color.red);
+                    Debug.DrawLine(p1, p3, Color.red);
+                    Debug.DrawLine(p2, p4, Color.red);
+                    Debug.DrawLine(p3, p4, Color.red);
+                }
+            }
+        }
+
 
         private void UpdateTetrino()
         {
@@ -52,7 +78,7 @@ namespace JP.Mytrix.Gameplay
                     if(!pattern.GetValue(bx,by))
                         continue;
                     
-                    Blocks[blockIndex].SetPosition(bx + x, by + y);
+                    Blocks[blockIndex].SetPosition(bx + X, by + Y);
                     blockIndex++;
                 }
             }
@@ -71,8 +97,8 @@ namespace JP.Mytrix.Gameplay
 
         public void Move(int x, int y)
         {
-            this.x += x;
-            this.y += y;
+            this.X += x;
+            this.Y += y;
 
             UpdateTetrino();
         }

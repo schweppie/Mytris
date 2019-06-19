@@ -41,7 +41,7 @@ namespace JP.Mytris.Data
 
             GUILayout.Label(" Pattern " + i );
 
-            pattern.ForceInitialize(tetrinoConfig.PatternWidth);
+            pattern.ForceInitialize(tetrinoConfig.PatternWidth, tetrinoConfig.PatternHeight);
 
             for(int y=0; y < tetrinoConfig.PatternHeight; y++)
             {
