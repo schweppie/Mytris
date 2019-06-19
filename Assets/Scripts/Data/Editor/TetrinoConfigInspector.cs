@@ -19,6 +19,8 @@ namespace JP.Mytris.Data
             EditorGUILayout.PropertyField(serializedObject.FindProperty("BlockConfig"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("TetrinoVisualizer"));
 
+            tetrinoConfig.Color = EditorGUILayout.ColorField(tetrinoConfig.Color);
+
             GUILayout.BeginHorizontal();
 
             if(GUILayout.Button("Add"))

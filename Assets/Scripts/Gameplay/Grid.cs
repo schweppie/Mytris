@@ -35,10 +35,12 @@ namespace JP.Mytrix.Gameplay
                     Vector3 p3 = new Vector3(gridx, gridy+1);
                     Vector3 p4 = new Vector3(gridx+1, gridy+1);;                    
 
-                    Debug.DrawLine(p1, p2, Color.black);
-                    Debug.DrawLine(p1, p3, Color.black);
-                    Debug.DrawLine(p2, p4, Color.black);
-                    Debug.DrawLine(p3, p4, Color.black);
+                    Color color = data[gridx,gridy] ? Color.red : Color.blue;
+
+                    Debug.DrawLine(p1, p2, color);
+                    Debug.DrawLine(p1, p3, color);
+                    Debug.DrawLine(p2, p4, color);
+                    Debug.DrawLine(p3, p4, color);
                 }
             }
         }
@@ -53,9 +55,18 @@ namespace JP.Mytrix.Gameplay
             {
                 for(int px =0; px < pattern.Width; px++)
                 {
+                    bool patternFilled = pattern.GetValue(px,py);
+
                     if(x + px < 0 || x + px > width-1 || y + py < 0 || y + py > height-1)
                     {
-                        if(pattern.GetValue(px,py))
+                        if(patternFilled)
+                            canfit = false;
+
+                        continue;
+                    }
+                    else
+                    {
+                        if(patternFilled && data[x+px, y+py])
                             canfit = false;
                     }
                 }
@@ -66,7 +77,19 @@ namespace JP.Mytrix.Gameplay
 
         public void AddTetrino(Tetrino tetrino)
         {
+            TetrinoPattern pattern = tetrino.Config.Patterns[tetrino.PatternIndex];
 
+            int x = tetrino.X;
+            int y = tetrino.Y;
+
+            for(int py = 0; py < pattern.Height; py++)
+            {
+                for(int px =0; px < pattern.Width; px++)
+                {
+                    if(pattern.GetValue(px,py))
+                        data[x+px, y+py] = true;
+                }
+            }            
         }
 
         public void UpdateBlocks()

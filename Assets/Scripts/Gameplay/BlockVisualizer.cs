@@ -4,11 +4,15 @@ namespace JP.Mytrix.Gameplay
 {
     public class BlockVisualizer : MonoBehaviour
     {
+
+        [SerializeField]
+        private Renderer renderer;
+
         private Block block;
         
         private Vector3 targetPosition;
         
-        public void Setup(Block block)
+        public void Setup(Block block, Color color)
         {
             this.block = block;
             
@@ -16,6 +20,8 @@ namespace JP.Mytrix.Gameplay
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
 
             targetPosition = transform.position;
+
+            renderer.material.SetColor("_Color", color);
         }
 
         private void OnPositionUpdatedEvent(int x, int y)

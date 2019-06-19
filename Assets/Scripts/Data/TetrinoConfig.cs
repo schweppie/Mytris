@@ -14,6 +14,8 @@ namespace JP.Mytris.Data
 
         public TetrinoVisualizer TetrinoVisualizer;
 
+        public Color Color;
+
         public int PatternWidth = 5;
         public int PatternHeight = 5;
 

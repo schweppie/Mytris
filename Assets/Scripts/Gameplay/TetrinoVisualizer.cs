@@ -16,7 +16,7 @@ namespace JP.Mytrix.Gameplay
             for (int i = 0; i < tetrino.Blocks.Count; i++)
             {
                 BlockVisualizer blockVisualizer = Instantiate(tetrino.Config.BlockConfig.VisualizerPrefab);
-                blockVisualizer.Setup(tetrino.Blocks[i]);
+                blockVisualizer.Setup(tetrino.Blocks[i], tetrino.Config.Color);
             }
             
         }
