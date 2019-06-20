@@ -21,6 +21,9 @@ namespace JP.Mytris.Data
 
             tetrinoConfig.Color = EditorGUILayout.ColorField(tetrinoConfig.Color);
 
+            EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(tetrinoConfig);
+
             GUILayout.BeginHorizontal();
 
             if(GUILayout.Button("Add"))
@@ -45,7 +48,7 @@ namespace JP.Mytris.Data
 
             pattern.ForceInitialize(tetrinoConfig.PatternWidth, tetrinoConfig.PatternHeight);
 
-            for(int y=0; y < tetrinoConfig.PatternHeight; y++)
+            for(int y=tetrinoConfig.PatternHeight-1; y >=0 ; y--)
             {
                 GUILayout.BeginHorizontal();
                 for(int x=0; x< tetrinoConfig.PatternWidth; x++)
