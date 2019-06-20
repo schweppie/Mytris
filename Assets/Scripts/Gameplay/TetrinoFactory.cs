@@ -1,5 +1,6 @@
 using System.Collections;
 using JP.Mytris.Data;
+using JP.Mytrix.Statemachine;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -13,6 +14,8 @@ namespace JP.Mytrix.Gameplay
         private int angle = 0;
         
         public static Grid Grid = new Grid(10,15);
+
+        private TetrisStateMachine statemachine;
 
         public Tetrino SpawnTetrino()
         {
@@ -31,6 +34,12 @@ namespace JP.Mytrix.Gameplay
             activeTetrino = SpawnTetrino();
 
             StartCoroutine(MoveBlockEnumerator());
+
+
+            statemachine = new TetrisStateMachine(TetrisGameStates.Idle);
+            statemachine.AddState(TetrisGameStates.Idle, new TetrisIdleState());
+
+            statemachine.Start();
 
         }
 
@@ -53,6 +62,8 @@ namespace JP.Mytrix.Gameplay
             Grid.DebugDraw();
 
             activeTetrino.DebugDraw();
+
+            statemachine.Update();
 
             if (Input.GetKeyDown(KeyCode.E) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1))
                 activeTetrino.Rotate();
