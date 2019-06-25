@@ -30,6 +30,12 @@ namespace JP.Mytrix.Gameplay
             return tetrino;
         }
 
+
+        public void AddTetrinoToBoard()
+        {
+            
+        }
+
 /*
 
         private void Awake()

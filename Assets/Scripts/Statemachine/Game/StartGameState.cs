@@ -17,13 +17,7 @@ namespace JP.Mytrix.Statemachine.Game
         {
             Debug.Log("Enter StartGameState");
 
-            tetrinoController.SpawnTetrino();
-        }
-
-        public override void Update()
-        {
-            if(Input.GetKey(KeyCode.W))
-                Debug.Log("asdfa");
+            
         }
     }
 }
