@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace JP.Mytrix.Statemachine
 {
@@ -12,12 +11,17 @@ namespace JP.Mytrix.Statemachine
 
         private T startStateId;
 
-        public StateMachine(T initialStateId)
+        public StateMachine()
         {
             states = new Dictionary<T, State>();
+            startStateId = GetInitialState();
 
-            startStateId = initialStateId;
+            running = false;
         }       
+
+        protected abstract T GetInitialState();
+
+        private bool running = false;
 
         public void AddState(T stateId, State state) 
         {
@@ -30,6 +34,7 @@ namespace JP.Mytrix.Statemachine
         public void Start()
         {
             states[startStateId].Enter();
+            running = true;
         }
 
         public void ChangeTo(T stateId)
@@ -43,38 +48,16 @@ namespace JP.Mytrix.Statemachine
 
         public void Update()
         {
+            if(!running)
+                return;
+
             states[currentStateId].Update();
         }
 
         public void Stop()
         {
+            running = false;
             states[currentStateId].Exit();
-        }
-    }
-
-    public enum TetrisGameStates
-    {
-        Idle,
-    }
-
-    public class TetrisIdleState : State
-    {
-        public override void Enter()
-        {
-            Debug.Log("Enter state");
-        }
-
-        public override void Update()
-        {
-            Debug.Log("uPDATE " + UnityEngine.Random.Range(1,100));
-        }
-        
-    }
-
-    public class TetrisStateMachine : StateMachine<TetrisGameStates>
-    {
-        public TetrisStateMachine(TetrisGameStates initialStateId) : base(initialStateId)
-        {
         }
     }
 }
