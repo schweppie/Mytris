@@ -1,3 +1,4 @@
+using JP.Mytrix.Flow;
 using UnityEngine;
 
 namespace JP.Mytrix.Statemachine.Menu
@@ -7,6 +8,12 @@ namespace JP.Mytrix.Statemachine.Menu
         public override void Enter()
         {
             Debug.Log("Enter menu state");
+        }
+
+        public override void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+                Locator.Instance.ActivateGame();
         }
     }
 }

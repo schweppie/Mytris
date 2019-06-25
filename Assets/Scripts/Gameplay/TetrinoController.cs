@@ -20,15 +20,18 @@ namespace JP.Mytrix.Gameplay
         {
             TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
 
-            Tetrino tetrino = new Tetrino(5,11, activeConfig);
+            Tetrino tetrino = new Tetrino(5,10, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
             
             instance.Setup(tetrino);
+
+            activeTetrino = tetrino;
 
             return tetrino;
         }
 
 /*
+
         private void Awake()
         {
             activeTetrino = SpawnTetrino();
@@ -50,7 +53,7 @@ namespace JP.Mytrix.Gameplay
             }
         }
 
-        private void Update()
+        public void UpdateTetrinoController()
         {
             Grid.DebugDraw();
 
@@ -75,6 +78,8 @@ namespace JP.Mytrix.Gameplay
         {
             Grid.AddTetrino(activeTetrino);
             activeTetrino = SpawnTetrino();
-        }*/
+        }
+        */
     }
+    
 }

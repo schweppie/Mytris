@@ -1,6 +1,3 @@
-using JP.Mytrix.Statemachine;
-using JP.Mytrix.Statemachine.Game;
-using JP.Mytrix.Statemachine.Menu;
 using UnityEngine;
 
 namespace JP.Mytrix.Flow
@@ -13,9 +10,7 @@ namespace JP.Mytrix.Flow
         private void Start()
         {
             locator.Initalize();
-            var menuStateMachine = locator.Get<MenuStateMachine>();
-
-            menuStateMachine.Start();
+            locator.ActivateMenu();
         }
     }
 }

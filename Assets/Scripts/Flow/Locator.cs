@@ -18,6 +18,8 @@ namespace JP.Mytrix.Flow
         private MenuStateMachine menuStateMachine = new MenuStateMachine();
         private GameStateMachine gameStateMachine = new GameStateMachine();
 
+        private bool initialized = false;
+
         public void Initalize()
         {
             Instance = this;
@@ -29,11 +31,34 @@ namespace JP.Mytrix.Flow
 
             instanceDictionary.Add(menuStateMachine.GetType(), menuStateMachine);
             instanceDictionary.Add(gameStateMachine.GetType(), gameStateMachine);
+
+            initialized = true;
         }
 
         public T Get<T>() where T : class
         {
             return instanceDictionary[typeof(T)] as T;
+        }
+
+        private void Update()
+        {
+            if(!initialized)
+                return;
+
+            menuStateMachine.Update();
+            gameStateMachine.Update();
+        }
+
+        public void ActivateGame()
+        {
+            menuStateMachine.Stop();
+            gameStateMachine.Start();
+        }
+
+        public void ActivateMenu()
+        {
+            gameStateMachine.Stop();
+            menuStateMachine.Start();
         }
     }
 }

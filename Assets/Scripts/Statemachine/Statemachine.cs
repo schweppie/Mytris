@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JP.Mytrix.Statemachine
 {
@@ -33,7 +34,11 @@ namespace JP.Mytrix.Statemachine
 
         public void Start()
         {
-            states[startStateId].Enter();
+            foreach(var pair in states) pair.Value.Initialize();
+
+            currentStateId = startStateId;
+            states[currentStateId].Enter();
+            
             running = true;
         }
 
@@ -56,8 +61,10 @@ namespace JP.Mytrix.Statemachine
 
         public void Stop()
         {
+            if(running)
+                states[currentStateId].Exit();
+
             running = false;
-            states[currentStateId].Exit();
         }
     }
 }
