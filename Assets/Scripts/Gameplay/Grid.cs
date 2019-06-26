@@ -88,13 +88,23 @@ namespace JP.Mytrix.Gameplay
                         blockIndex++;
                     }
                 }
-            }            
+            }
         }
 
-        public void UpdateBlocks()
+        public bool IsRowFull(int row)
         {
+            row = Mathf.Max(0, Mathf.Min(row, height-1));
 
+            for(int i=0; i<width; i++)
+                if(blockData[i,row] == null)
+                    return false;
 
+            return true;
+        }
+
+        public void ClearRow(int row)
+        {
+            
         }
     }
 }

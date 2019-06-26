@@ -21,6 +21,7 @@ namespace JP.Mytrix.Gameplay
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
 
             instance.Setup(tetrino);
+            instance.transform.SetParent(this.transform);
 
             activeTetrino = tetrino;
         }
@@ -48,6 +49,8 @@ namespace JP.Mytrix.Gameplay
         public void AddTetrinoToBoard()
         {
             PlaceTetrino();
+
+            activeTetrino.Dispose();
         }
 
         private void PlaceTetrino()
