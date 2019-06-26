@@ -1,23 +1,19 @@
-using JP.Mytrix.Flow;
-using JP.Mytrix.Gameplay;
 using UnityEngine;
 
 namespace JP.Mytrix.Statemachine.Game
 {
-    public class StartGameState : State
+    public class StartGameState : BaseGameState
     {
-        private TetrinoController tetrinoController;
-
-        public override void Initialize()
-        {
-            tetrinoController = Locator.Instance.Get<TetrinoController>();
-        }
-
         public override void Enter()
         {
             Debug.Log("Enter StartGameState");
 
-            
+            gameStateMachine.ChangeTo(GameState.MoveTetrino);
+        }
+
+        public override void Exit()
+        {
+            Debug.Log("Exit StartGameState");
         }
     }
 }

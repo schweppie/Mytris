@@ -1,21 +1,15 @@
-using JP.Mytrix.Flow;
-using JP.Mytrix.Gameplay;
+using System.Collections;
 using UnityEngine;
 
 namespace JP.Mytrix.Statemachine.Game
 {
-    public class MoveTetrinoState : State
+    public class MoveTetrinoState : BaseGameState
     {
-        private TetrinoController tetrinoController;
-
-        public override void Initialize()
-        {
-            tetrinoController = Locator.Instance.Get<TetrinoController>();
-        }
-
         public override void Enter()
         {
             Debug.Log("Enter MoveTetrinoState");
+
+            tetrinoController.StartCoroutine(MoveTetrinoRoutine());
         }
 
         public override void Update()
@@ -23,9 +17,26 @@ namespace JP.Mytrix.Statemachine.Game
 
         }
 
+        private IEnumerator MoveTetrinoRoutine()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(1f);
+                
+                /*
+                if(tetrinoController.CanMoveTetrinoDown())
+                    tetrinoController.MoveTetrinoDown();
+                    */
+
+                Debug.Log("Move tetrino down one step");
+            }
+        }
+
         public override void Exit()
         {
-            Debug.Log("Enter MoveTetrinoState");
+            tetrinoController.StopCoroutine(MoveTetrinoRoutine());
+
+            Debug.Log("Exit MoveTetrinoState");
         }
     }
 }

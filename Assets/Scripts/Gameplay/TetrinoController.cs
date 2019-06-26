@@ -31,9 +31,28 @@ namespace JP.Mytrix.Gameplay
         }
 
 
+
+        public void MoveTetrinoDown()
+        {
+            activeTetrino.Move(0,-1);
+        }
+
+        public bool CanMoveTetrinoDown()
+        {
+            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y-1, activeTetrino.PatternIndex);
+        }
+
+
         public void AddTetrinoToBoard()
         {
-            
+            PlaceTetrino();
+        }
+
+
+        private void PlaceTetrino()
+        {
+            Grid.AddTetrino(activeTetrino);
+            activeTetrino = SpawnTetrino();
         }
 
 /*
@@ -80,11 +99,7 @@ namespace JP.Mytrix.Gameplay
             if (Input.GetKeyDown(KeyCode.Space))
                 PlaceTetrino();
         }
-        private void PlaceTetrino()
-        {
-            Grid.AddTetrino(activeTetrino);
-            activeTetrino = SpawnTetrino();
-        }
+
         */
     }
     
