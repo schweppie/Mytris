@@ -49,7 +49,6 @@ namespace JP.Mytrix.Gameplay
         public void AddTetrinoToBoard()
         {
             PlaceTetrino();
-
             activeTetrino.Dispose();
         }
 
@@ -61,6 +60,15 @@ namespace JP.Mytrix.Gameplay
         private void Update()
         {
             Grid.DebugDraw();
+
+            if(UnityEngine.Input.GetKeyDown(KeyCode.F1))
+                Grid.ClearRow(0);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.F2))
+                Grid.ClearRow(1);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.F3))
+                Grid.ClearRow(2);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.F4))
+                Grid.ClearRow(3);
         }
     }
     

@@ -1,9 +1,8 @@
 using JP.Mytris.Data;
-using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
 {
-    public class Block
+    public class Block : DisposableData
     {
         public int X {get; private set;}
         public int Y {get; private set;}

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using UnityEngine;
+using JP.Mytrix.Visualization;
 
 namespace JP.Mytrix.Gameplay
 {
-    public class TetrinoVisualizer : MonoBehaviour
+    public class TetrinoVisualizer : DataVisualizer<Tetrino>
     {
         private Tetrino tetrino;
 
         private List<BlockVisualizer> blocks;
         
-        public void Setup(Tetrino tetrino)
+        public override void Setup(Tetrino tetrino)
         {
             this.tetrino = tetrino;
 
@@ -20,7 +20,8 @@ namespace JP.Mytrix.Gameplay
             for (int i = 0; i < tetrino.Blocks.Count; i++)
             {
                 BlockVisualizer blockVisualizer = Instantiate(tetrino.Config.BlockConfig.VisualizerPrefab);
-                blockVisualizer.Setup(tetrino.Blocks[i], tetrino.Config.Color);
+                blockVisualizer.Setup(tetrino.Blocks[i]);
+                blockVisualizer.SetColor(tetrino.Config.Color);
             }
         }
 

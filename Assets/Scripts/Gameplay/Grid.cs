@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using JP.Mytris.Data;
+﻿using JP.Mytris.Data;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -10,6 +9,8 @@ namespace JP.Mytrix.Gameplay
 
         private int width;
         private int height;
+
+        public int Height => height;
 
         public Grid(int width, int height)
         {
@@ -104,7 +105,17 @@ namespace JP.Mytrix.Gameplay
 
         public void ClearRow(int row)
         {
-            
+            row = Mathf.Max(0, Mathf.Min(row, height-1));
+
+            for(int i=0; i<width; i++)
+            {
+                Block block = blockData[i,row];
+
+                if(block != null)
+                    block.Dispose();
+
+                blockData[i,row] = null;
+            }
         }
     }
 }

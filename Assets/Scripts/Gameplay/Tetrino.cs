@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JP.Mytris.Data;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
 {
-    public class Tetrino : IDisposable
+    public class Tetrino : DisposableData
     {
         public TetrinoConfig Config { get; private set; }
 
@@ -18,9 +17,6 @@ namespace JP.Mytrix.Gameplay
         public List<Block> Blocks { get; private set; }
         
         public int PatternIndex {get ; private set;}
-
-        public delegate void OnDisposeDelegate();
-        public event OnDisposeDelegate OnDisposeEvent;
 
         public Tetrino(int x, int y, TetrinoConfig config)
         {
@@ -114,13 +110,6 @@ namespace JP.Mytrix.Gameplay
             this.Y += y;
 
             UpdateTetrino();
-        }
-
-        public void Dispose()
-        {
-            Debug.Log("Disposing Tetrino");
-            if(OnDisposeEvent!=null)
-                OnDisposeEvent();
         }
     }
 }

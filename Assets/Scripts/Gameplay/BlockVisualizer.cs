@@ -1,10 +1,10 @@
+using JP.Mytrix.Visualization;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
 {
-    public class BlockVisualizer : MonoBehaviour
+    public class BlockVisualizer : DataVisualizer<Block>
     {
-
         [SerializeField]
         private Renderer renderer;
 
@@ -12,18 +12,23 @@ namespace JP.Mytrix.Gameplay
         
         private Vector3 targetPosition;
         
-        public void Setup(Block block, Color color)
+        public override void Setup(Block block)
         {
             this.block = block;
             
             transform.position = new Vector3(block.X, block.Y, 0);
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
 
+            block.OnDisposeEvent += OnDisposeEvent;
+
             targetPosition = transform.position;
 
-            renderer.material.SetColor("_Color", color);
-
             transform.position = targetPosition;
+        }
+
+        public void SetColor(Color color)
+        {
+            renderer.material.SetColor("_Color", color);
         }
 
         private void OnPositionUpdatedEvent(int x, int y)
@@ -39,9 +44,13 @@ namespace JP.Mytrix.Gameplay
             //transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
         }
 
-        private void OnDestroy()
+
+        private void OnDisposeEvent()
         {
             block.PositionUpdatedEvent -= OnPositionUpdatedEvent;
+            block.OnDisposeEvent -= OnDisposeEvent;
+
+            Destroy(this.gameObject);
         }
     }
 }
