@@ -11,13 +11,13 @@ namespace JP.Mytrix.Gameplay
 
         private int angle = 0;
         
-        public static Grid Grid = new Grid(10,15);
+        public static Grid Grid = new Grid(10,24);
 
         public void SpawnTetrino()
         {
             TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
 
-            Tetrino tetrino = new Tetrino(3,8, activeConfig);
+            Tetrino tetrino = new Tetrino(3,20, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
 
             instance.Setup(tetrino);

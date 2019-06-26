@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JP.Mytris.Data;
 using UnityEngine;
 
@@ -7,9 +6,7 @@ namespace JP.Mytrix.Gameplay
 {
     public class Grid
     {
-        private bool[,] data;
-
-        private List<Block> blocks;
+        private Block[,] blockData;
 
         private int width;
         private int height;
@@ -19,9 +16,7 @@ namespace JP.Mytrix.Gameplay
             this.width = width;
             this.height = height;
 
-            data = new bool[ width, height];
-
-            blocks = new List<Block>();
+            blockData = new Block[ width, height];
         }
 
         public void DebugDraw()
@@ -35,7 +30,7 @@ namespace JP.Mytrix.Gameplay
                     Vector3 p3 = new Vector3(gridx, gridy+1);
                     Vector3 p4 = new Vector3(gridx+1, gridy+1);;                    
 
-                    Color color = data[gridx,gridy] ? Color.red : Color.blue;
+                    Color color = blockData[gridx,gridy] != null ? Color.red : Color.blue;
 
                     Debug.DrawLine(p1, p2, color);
                     Debug.DrawLine(p1, p3, color);
@@ -66,7 +61,7 @@ namespace JP.Mytrix.Gameplay
                     }
                     else
                     {
-                        if(patternFilled && data[x+px, y+py])
+                        if(patternFilled && blockData[x+px, y+py] != null)
                             canfit = false;
                     }
                 }
@@ -82,12 +77,16 @@ namespace JP.Mytrix.Gameplay
             int x = tetrino.X;
             int y = tetrino.Y;
 
+            int blockIndex = 0;
             for(int py = 0; py < pattern.Height; py++)
             {
                 for(int px =0; px < pattern.Width; px++)
                 {
                     if(pattern.GetValue(px,py))
-                        data[x+px, y+py] = true;
+                    {
+                        blockData[x+px, y+py] = tetrino.Blocks[blockIndex];
+                        blockIndex++;
+                    }
                 }
             }            
         }
