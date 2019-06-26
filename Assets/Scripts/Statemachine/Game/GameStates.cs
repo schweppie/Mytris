@@ -3,7 +3,8 @@ namespace JP.Mytrix.Statemachine.Game
     public enum GameState
     {
         StartGame = 1,
-        MoveTetrino = 2,
-        AddToGrid = 3,
+        SpawnTetrino = 2,
+        MoveTetrino = 3,
+        AddToGrid = 4,
     }
 }

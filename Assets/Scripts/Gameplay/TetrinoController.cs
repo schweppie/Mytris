@@ -1,7 +1,4 @@
-using System.Collections;
 using JP.Mytris.Data;
-using JP.Mytrix.Statemachine;
-using JP.Mytrix.Statemachine.Game;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -16,21 +13,17 @@ namespace JP.Mytrix.Gameplay
         
         public static Grid Grid = new Grid(10,15);
 
-        public Tetrino SpawnTetrino()
+        public void SpawnTetrino()
         {
             TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
 
-            Tetrino tetrino = new Tetrino(5,10, activeConfig);
+            Tetrino tetrino = new Tetrino(3,8, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
-            
+
             instance.Setup(tetrino);
 
             activeTetrino = tetrino;
-
-            return tetrino;
         }
-
-
 
         public void MoveTetrinoDown()
         {
@@ -42,42 +35,22 @@ namespace JP.Mytrix.Gameplay
             return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y-1, activeTetrino.PatternIndex);
         }
 
-
         public void AddTetrinoToBoard()
         {
             PlaceTetrino();
         }
 
-
         private void PlaceTetrino()
         {
             Grid.AddTetrino(activeTetrino);
-            activeTetrino = SpawnTetrino();
+        }
+
+        private void Update()
+        {
+            Grid.DebugDraw();
         }
 
 /*
-
-        private void Awake()
-        {
-            activeTetrino = SpawnTetrino();
-
-            StartCoroutine(MoveBlockEnumerator());
-        }
-
-        private IEnumerator MoveBlockEnumerator()
-        {
-            while(true)
-            {
-                yield return new WaitForSeconds(1f);
-                if(Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y-1, activeTetrino.PatternIndex))
-                {
-                    activeTetrino.Move(0,-1);
-                }
-                else
-                    PlaceTetrino();
-            }
-        }
-
         public void UpdateTetrinoController()
         {
             Grid.DebugDraw();

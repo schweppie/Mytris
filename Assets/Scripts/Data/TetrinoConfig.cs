@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JP.Mytrix.Gameplay;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace JP.Mytris.Data
 {
@@ -20,22 +21,21 @@ namespace JP.Mytris.Data
         public int PatternHeight = 5;
 
 
-        [SerializeField]
-        private List<TetrinoPattern> patterns = new List<TetrinoPattern>();
-
-        public List<TetrinoPattern> Patterns
-        {
-            get{ return patterns;}
-        }
+        [SerializeField, FormerlySerializedAs("patterns")]
+        public List<TetrinoPattern> Patterns;
 
         public void AddPattern()
         {
-            patterns.Add(new TetrinoPattern(5,5));
+            if(Patterns == null) Patterns = new List<TetrinoPattern>();
+
+            Patterns.Add(new TetrinoPattern(5,5));
         }
 
         public void RemovePattern(int index)
         {
-            patterns.RemoveAt(index);
+            if(Patterns == null) return;
+
+            Patterns.RemoveAt(index);
         }
     }
 }

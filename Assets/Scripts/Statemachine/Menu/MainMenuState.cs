@@ -1,6 +1,5 @@
 using JP.Mytrix.Flow;
 using JP.Mytrix.Input;
-using UnityEngine;
 
 namespace JP.Mytrix.Statemachine.Menu
 {
@@ -15,8 +14,6 @@ namespace JP.Mytrix.Statemachine.Menu
 
         public override void Enter()
         {
-            Debug.Log("Enter menu state");
-
             inputController.OnInputDownEvent += OnInputDown;
         }
 

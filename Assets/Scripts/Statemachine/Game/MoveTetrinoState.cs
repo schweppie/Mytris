@@ -5,11 +5,11 @@ namespace JP.Mytrix.Statemachine.Game
 {
     public class MoveTetrinoState : BaseGameState
     {
+        private Coroutine moveTetrinoRoutine;
+
         public override void Enter()
         {
-            Debug.Log("Enter MoveTetrinoState");
-
-            tetrinoController.StartCoroutine(MoveTetrinoRoutine());
+            moveTetrinoRoutine = tetrinoController.StartCoroutine(MoveTetrinoEnumerator());
         }
 
         public override void Update()
@@ -17,26 +17,23 @@ namespace JP.Mytrix.Statemachine.Game
 
         }
 
-        private IEnumerator MoveTetrinoRoutine()
+        private IEnumerator MoveTetrinoEnumerator()
         {
             while(true)
             {
                 yield return new WaitForSeconds(1f);
                 
-                /*
+                
                 if(tetrinoController.CanMoveTetrinoDown())
                     tetrinoController.MoveTetrinoDown();
-                    */
-
-                Debug.Log("Move tetrino down one step");
+                else
+                    gameStateMachine.ChangeTo(GameState.AddToGrid);
             }
         }
 
         public override void Exit()
         {
-            tetrinoController.StopCoroutine(MoveTetrinoRoutine());
-
-            Debug.Log("Exit MoveTetrinoState");
+            tetrinoController.StopCoroutine(moveTetrinoRoutine);
         }
     }
 }

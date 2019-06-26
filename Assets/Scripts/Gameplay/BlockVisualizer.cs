@@ -26,8 +26,6 @@ namespace JP.Mytrix.Gameplay
 
         private void OnPositionUpdatedEvent(int x, int y)
         {
-            Debug.Log("OnPositionUpdatedEvent " + x + ", " + y);
-
             targetPosition.x = x;
             targetPosition.y = y;
 

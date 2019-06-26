@@ -299,7 +299,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
+  - {fileID: 11400000, guid: a00c5423c912ca449a57fdc1e8abf979, type: 2}
+  - {fileID: 11400000, guid: ca54ab6f683654642a2572e04151c068, type: 2}
+  - {fileID: 11400000, guid: 6ab1620ecbc4e1a469441e11b153f1fe, type: 2}
+  - {fileID: 11400000, guid: a59f0dcdb2c1ac34fbade03b3c6fac62, type: 2}
+  - {fileID: 11400000, guid: 3dd69a8fdbb40e84996702abd30502b6, type: 2}
   - {fileID: 11400000, guid: d7b344d3266891648bf02d021c41b2f8, type: 2}
+  - {fileID: 11400000, guid: 305145b83345b364181c05bc895e12e9, type: 2}
 --- !u!4 &1107896949
 Transform:
   m_ObjectHideFlags: 0

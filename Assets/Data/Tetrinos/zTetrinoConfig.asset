@@ -18,6 +18,6 @@ MonoBehaviour:
   Color: {r: 0.6126871, g: 0, b: 1, a: 0}
   PatternWidth: 5
   PatternHeight: 5
-  patterns:
+  Patterns:
   - data: 00000000000000000000000000000000000101000001010000
   - data: 00000000000000000000000100000000010100000000010000
