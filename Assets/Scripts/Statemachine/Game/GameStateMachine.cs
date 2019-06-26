@@ -8,6 +8,7 @@ namespace JP.Mytrix.Statemachine.Game
             AddState(GameState.SpawnTetrino, new SpawnTetrinoState());
             AddState(GameState.MoveTetrino, new MoveTetrinoState());
             AddState(GameState.AddToGrid, new AddTetrinoToGridState());
+            AddState(GameState.UpdateGrid, new UpdateGridState());
         }
 
         protected override GameState GetInitialState()

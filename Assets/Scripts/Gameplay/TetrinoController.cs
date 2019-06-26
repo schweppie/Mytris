@@ -11,13 +11,13 @@ namespace JP.Mytrix.Gameplay
 
         private int angle = 0;
         
-        public static Grid Grid = new Grid(10,24);
+        public static Grid Grid = new Grid(10,14);
 
         public void SpawnTetrino()
         {
             TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
 
-            Tetrino tetrino = new Tetrino(3,20, activeConfig);
+            Tetrino tetrino = new Tetrino(3,10, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
 
             instance.Setup(tetrino);
@@ -60,6 +60,9 @@ namespace JP.Mytrix.Gameplay
         private void Update()
         {
             Grid.DebugDraw();
+
+            if(activeTetrino!=null)
+                activeTetrino.DebugDraw();
 
             if(UnityEngine.Input.GetKeyDown(KeyCode.F1))
                 Grid.ClearRow(0);
