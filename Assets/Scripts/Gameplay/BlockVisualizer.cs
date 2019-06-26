@@ -22,6 +22,8 @@ namespace JP.Mytrix.Gameplay
             targetPosition = transform.position;
 
             renderer.material.SetColor("_Color", color);
+
+            transform.position = targetPosition;
         }
 
         private void OnPositionUpdatedEvent(int x, int y)
@@ -36,7 +38,6 @@ namespace JP.Mytrix.Gameplay
         {
             //transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
         }
-        
 
         private void OnDestroy()
         {

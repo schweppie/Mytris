@@ -25,14 +25,24 @@ namespace JP.Mytrix.Gameplay
             activeTetrino = tetrino;
         }
 
-        public void MoveTetrinoDown()
+        public void MoveTetrino(int xOffset, int yOffset)
         {
-            activeTetrino.Move(0,-1);
+            activeTetrino.Move(xOffset,yOffset);
         }
 
-        public bool CanMoveTetrinoDown()
+        public void RotateTetrino()
         {
-            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y-1, activeTetrino.PatternIndex);
+            activeTetrino.Rotate();
+        }
+
+        public bool CanMoveTetrino(int xOffset, int yOffset)
+        {
+            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X+xOffset, activeTetrino.Y+yOffset, activeTetrino.PatternIndex);
+        }
+
+        public bool CanRotateTetrino()
+        {
+            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1);
         }
 
         public void AddTetrinoToBoard()
@@ -49,31 +59,6 @@ namespace JP.Mytrix.Gameplay
         {
             Grid.DebugDraw();
         }
-
-/*
-        public void UpdateTetrinoController()
-        {
-            Grid.DebugDraw();
-
-            activeTetrino.DebugDraw();
-
-            if (Input.GetKeyDown(KeyCode.E) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1))
-                activeTetrino.Rotate();
-
-            if (Input.GetKeyDown(KeyCode.W) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y + 1, activeTetrino.PatternIndex))
-                activeTetrino.Move(0,1);
-            if (Input.GetKeyDown(KeyCode.S) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y - 1, activeTetrino.PatternIndex))
-                activeTetrino.Move(0,-1);
-            if (Input.GetKeyDown(KeyCode.D) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X + 1, activeTetrino.Y, activeTetrino.PatternIndex))
-                activeTetrino.Move(1,0);
-            if (Input.GetKeyDown(KeyCode.A) && Grid.CanTetrinoFit(activeTetrino, activeTetrino.X - 1, activeTetrino.Y, activeTetrino.PatternIndex))
-                activeTetrino.Move(-1,0);
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                PlaceTetrino();
-        }
-
-        */
     }
     
 }
