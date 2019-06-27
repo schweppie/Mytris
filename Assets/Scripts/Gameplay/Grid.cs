@@ -117,5 +117,26 @@ namespace JP.Mytrix.Gameplay
                 blockData[i,row] = null;
             }
         }
+
+        public void MoveGridDown(int row)
+        {
+            row = Mathf.Max(0, Mathf.Min(row, height-1));
+
+            for(int i=0; i<width;i++)
+            {
+                for(int j=row; j<height-1; j++)
+                {
+                    Block block = blockData[i,j+1];
+
+                    if(block!=null)
+                    {
+                        blockData[i,j] = block;
+                        block.SetPosition(i,j);
+
+                        blockData[i,j+1] = null;
+                    }
+                }
+            }
+        }
     }
 }

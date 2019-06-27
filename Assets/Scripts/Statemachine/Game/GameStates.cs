@@ -6,6 +6,6 @@ namespace JP.Mytrix.Statemachine.Game
         SpawnTetrino = 2,
         MoveTetrino = 3,
         AddToGrid = 4,
-        UpdateGrid = 5,
+        ClearGrid = 5,
     }
 }

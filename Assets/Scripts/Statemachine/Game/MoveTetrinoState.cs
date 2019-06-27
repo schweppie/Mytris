@@ -41,7 +41,7 @@ namespace JP.Mytrix.Statemachine.Game
         {
             while(true)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(tetrinoController.MoveDuration);
                 
                 if(tetrinoController.CanMoveTetrino(0, -1))
                     tetrinoController.MoveTetrino(0, -1);

@@ -14,9 +14,13 @@ namespace JP.Mytrix.Gameplay
 
         private GridController gridController;
 
+        public float MoveDuration { get; private set;}
+
         public void Setup()
         {
             gridController = Locator.Instance.Get<GridController>();
+
+            MoveDuration = 0.3f;
         }
 
         public void SpawnTetrino()

@@ -7,7 +7,7 @@ namespace JP.Mytrix.Statemachine.Game
         public override void Enter()
         {
             tetrinoController.AddTetrinoToBoard();
-            gameStateMachine.ChangeTo(GameState.UpdateGrid);
+            gameStateMachine.ChangeTo(GameState.ClearGrid);
         }
     }
 }
