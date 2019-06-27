@@ -4,11 +4,20 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Block
+    100004: BlockFront
     400000: //RootNode
+    400002: Block
+    400004: BlockFront
     2100000: No Name
     2300000: //RootNode
+    2300002: Block
+    2300004: BlockFront
     3300000: //RootNode
+    3300002: Block
+    3300004: BlockFront
     4300000: Block
+    4300002: BlockFront
   externalObjects: {}
   materials:
     importMaterials: 1

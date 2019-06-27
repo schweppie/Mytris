@@ -1,3 +1,4 @@
+using System.Collections;
 using JP.Mytrix.Visualization;
 using UnityEngine;
 
@@ -6,7 +7,10 @@ namespace JP.Mytrix.Gameplay.Blocks
     public class BlockVisualizer : DataVisualizer<Block>
     {
         [SerializeField]
-        private Renderer renderer;
+        private Renderer[] renderers;
+
+        [SerializeField]
+        private Rigidbody[] rigidbodies;
 
         private Block block;
         
@@ -30,7 +34,8 @@ namespace JP.Mytrix.Gameplay.Blocks
 
         public void SetColor(Color color)
         {
-            renderer.material.SetColor("_Color", color);
+            for(int i=0; i< renderers.Length; i++)
+                renderers[i].material.SetColor("_Color", color);
         }
 
         private void OnPositionUpdatedEvent(int x, int y, PositionUpdateType updateType)
@@ -47,13 +52,37 @@ namespace JP.Mytrix.Gameplay.Blocks
             transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
         }
 
+        private IEnumerator DestructionEnumerator()
+        {
+            Vector3 randomDirection = new Vector3();
+
+            for(int i=0 ; i<rigidbodies.Length ; i++)
+            {
+                Rigidbody rigidbody = rigidbodies[i];
+
+                rigidbody.isKinematic = false;
+
+                randomDirection.x = Random.Range(-0.2f, 0.2f);
+                randomDirection.y = Random.Range( 0.5f, 1f);
+                randomDirection.z = Random.Range(-1f, 1f);
+
+                randomDirection.Normalize();
+
+                rigidbody.AddForce(randomDirection * Random.Range(30f,40f), ForceMode.VelocityChange);
+                rigidbody.AddTorque(randomDirection * Random.Range(100f,150f), ForceMode.VelocityChange);
+            }
+
+            yield return new WaitForSeconds(5f);
+
+            Destroy(this.gameObject);
+        }
 
         private void OnDisposeEvent()
         {
             block.PositionUpdatedEvent -= OnPositionUpdatedEvent;
             block.OnDisposeEvent -= OnDisposeEvent;
 
-            Destroy(this.gameObject);
+            StartCoroutine(DestructionEnumerator());
         }
     }
 }

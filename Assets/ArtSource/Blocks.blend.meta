@@ -6,18 +6,29 @@ ModelImporter:
     100000: //RootNode
     100002: Block
     100004: Cube
+    100006: Block_001
+    100008: BlockFront
     400000: //RootNode
     400002: Block
     400004: Cube
+    400006: Block_001
+    400008: BlockFront
     2100000: unnamed
+    2100002: block_ao_legacy__block_ao_legacy
     2300000: //RootNode
     2300002: Block
     2300004: Cube
+    2300006: Block_001
+    2300008: BlockFront
     3300000: //RootNode
     3300002: Block
     3300004: Cube
+    3300006: Block_001
+    3300008: BlockFront
     4300000: Block
     4300002: Cube
+    4300004: Block_001
+    4300006: BlockFront
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
