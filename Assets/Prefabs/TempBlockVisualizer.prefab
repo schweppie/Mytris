@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8134753216194533928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c633a06beb30c4891536a8e53ba5e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e03ed1e8bcf5d24b80e4c9bfc57a086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 7572173787908016545}
@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 21cb384ce3625ef41b91ee5947e9440e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fd4a8068738daa4f99ee4b5b9c4c7c3, type: 2}
     - target: {fileID: 400000, guid: 21cb384ce3625ef41b91ee5947e9440e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -100,10 +104,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 21cb384ce3625ef41b91ee5947e9440e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1fd4a8068738daa4f99ee4b5b9c4c7c3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21cb384ce3625ef41b91ee5947e9440e, type: 3}
 --- !u!4 &7572173787910441793 stripped

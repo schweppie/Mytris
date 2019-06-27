@@ -1,6 +1,6 @@
 using JP.Mytris.Data;
 
-namespace JP.Mytrix.Gameplay
+namespace JP.Mytrix.Gameplay.Blocks
 {
     public class Block : DisposableData
     {
@@ -8,7 +8,7 @@ namespace JP.Mytrix.Gameplay
         public int Y {get; private set;}
         public BlockConfig Config { get; private set; }
 
-        public delegate void PositionUpdateDelegate(int x, int y);
+        public delegate void PositionUpdateDelegate(int x, int y, PositionUpdateType updateType);
         public event PositionUpdateDelegate PositionUpdatedEvent;
         
         public Block(int x, int y, BlockConfig config)
@@ -18,18 +18,18 @@ namespace JP.Mytrix.Gameplay
             Config = config;
         }
 
-        public void SetPosition(int x, int y)
+        public void SetPosition(int x, int y, PositionUpdateType updateType)
         {
             X = x;
             Y = y;
 
-            DispatchPositionUpdatedEvent();
+            DispatchPositionUpdatedEvent(updateType);
         }
 
-        private void DispatchPositionUpdatedEvent()
+        private void DispatchPositionUpdatedEvent(PositionUpdateType updateType)
         {
             if (PositionUpdatedEvent != null)
-                PositionUpdatedEvent(X, Y);
+                PositionUpdatedEvent(X, Y, updateType);
         }
     }
 }

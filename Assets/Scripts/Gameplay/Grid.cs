@@ -1,4 +1,5 @@
 ﻿using JP.Mytris.Data;
+using JP.Mytrix.Gameplay.Blocks;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -131,7 +132,7 @@ namespace JP.Mytrix.Gameplay
                     if(block!=null)
                     {
                         blockData[i,j] = block;
-                        block.SetPosition(i,j);
+                        block.SetPosition(i,j, PositionUpdateType.Default);
 
                         blockData[i,j+1] = null;
                     }

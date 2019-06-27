@@ -1,4 +1,4 @@
-using JP.Mytrix.Gameplay;
+using JP.Mytrix.Gameplay.Blocks;
 using UnityEngine;
 
 namespace JP.Mytris.Data

@@ -1,7 +1,7 @@
 using JP.Mytrix.Visualization;
 using UnityEngine;
 
-namespace JP.Mytrix.Gameplay
+namespace JP.Mytrix.Gameplay.Blocks
 {
     public class BlockVisualizer : DataVisualizer<Block>
     {
@@ -31,12 +31,13 @@ namespace JP.Mytrix.Gameplay
             renderer.material.SetColor("_Color", color);
         }
 
-        private void OnPositionUpdatedEvent(int x, int y)
+        private void OnPositionUpdatedEvent(int x, int y, PositionUpdateType updateType)
         {
             targetPosition.x = x;
             targetPosition.y = y;
 
-            //transform.position = new Vector3(x, y, 0);
+            if(updateType == PositionUpdateType.Rotate)
+                transform.position = new Vector3(x, y, 0);
         }
         
         private void Update()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using JP.Mytris.Data;
+using JP.Mytrix.Gameplay.Blocks;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -17,6 +18,12 @@ namespace JP.Mytrix.Gameplay
         public List<Block> Blocks { get; private set; }
         
         public int PatternIndex {get ; private set;}
+
+        private enum UpdateType
+        {
+            Position,
+            Rotation,
+        }
 
         public Tetrino(int x, int y, TetrinoConfig config)
         {
@@ -41,8 +48,46 @@ namespace JP.Mytrix.Gameplay
             }
         }
 
+        private void UpdateTetrino(UpdateType updateType)
+        {
+            PopulatePattern();
 
-        public void DebugDraw()
+            int blockIndex = 0;
+            for(int by = 0; by < Config.PatternHeight; by++)
+            {
+                for(int bx = 0; bx < Config.PatternWidth; bx++)
+                {
+                    if(!pattern.GetValue(bx,by))
+                        continue;
+                    
+                    PositionUpdateType blockUpdateType = (updateType == UpdateType.Position ) ? PositionUpdateType.Move : PositionUpdateType.Rotate;
+
+                    Blocks[blockIndex].SetPosition(bx + X, by + Y, blockUpdateType);
+                    blockIndex++;
+                }
+            }
+        }
+
+        private void PopulatePattern()
+        {
+            pattern = Config.Patterns[PatternIndex % Config.Patterns.Count];
+        }
+
+        public void Rotate()
+        {
+            PatternIndex = (PatternIndex + 1) % Config.Patterns.Count;
+            UpdateTetrino(UpdateType.Rotation);
+        }
+
+        public void Move(int x, int y)
+        {
+            this.X += x;
+            this.Y += y;
+
+            UpdateTetrino(UpdateType.Position);
+        }
+
+                public void DebugDraw()
         {
 
             for(int y = 0; y < pattern.Height; y++)
@@ -73,43 +118,6 @@ namespace JP.Mytrix.Gameplay
             Debug.DrawLine(pt1, pt3, Color.green);
             Debug.DrawLine(pt2, pt4, Color.green);
             Debug.DrawLine(pt3, pt4, Color.green);
-        }
-
-        private void UpdateTetrino()
-        {
-            PopulatePattern();
-
-            int blockIndex = 0;
-            for(int by = 0; by < Config.PatternHeight; by++)
-            {
-                for(int bx = 0; bx < Config.PatternWidth; bx++)
-                {
-                    if(!pattern.GetValue(bx,by))
-                        continue;
-                    
-                    Blocks[blockIndex].SetPosition(bx + X, by + Y);
-                    blockIndex++;
-                }
-            }
-        }
-
-        private void PopulatePattern()
-        {
-            pattern = Config.Patterns[PatternIndex % Config.Patterns.Count];
-        }
-
-        public void Rotate()
-        {
-            PatternIndex = (PatternIndex + 1) % Config.Patterns.Count;
-            UpdateTetrino();
-        }
-
-        public void Move(int x, int y)
-        {
-            this.X += x;
-            this.Y += y;
-
-            UpdateTetrino();
         }
     }
 }
