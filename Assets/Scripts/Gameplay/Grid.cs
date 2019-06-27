@@ -27,10 +27,10 @@ namespace JP.Mytrix.Gameplay
             {
                 for(int gridx = 0; gridx < width; gridx++)
                 {
-                    Vector3 p1 = new Vector3(gridx,gridy, 0);
-                    Vector3 p2 = new Vector3(gridx+1, gridy);
-                    Vector3 p3 = new Vector3(gridx, gridy+1);
-                    Vector3 p4 = new Vector3(gridx+1, gridy+1);;                    
+                    Vector3 p1 = new Vector3(gridx - 5f,gridy, 0);
+                    Vector3 p2 = new Vector3(gridx+1- 5f, gridy);
+                    Vector3 p3 = new Vector3(gridx- 5f, gridy+1);
+                    Vector3 p4 = new Vector3(gridx+1- 5f, gridy+1);;                    
 
                     Color color = blockData[gridx,gridy] != null ? Color.red : Color.blue;
 
