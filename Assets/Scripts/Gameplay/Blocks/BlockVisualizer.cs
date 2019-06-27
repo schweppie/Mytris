@@ -11,12 +11,14 @@ namespace JP.Mytrix.Gameplay.Blocks
         private Block block;
         
         private Vector3 targetPosition;
+
+        private const float X_OFFSET = -5f;
         
         public override void Setup(Block block)
         {
             this.block = block;
             
-            transform.position = new Vector3(block.X, block.Y, 0);
+            transform.position = new Vector3(block.X + X_OFFSET, block.Y, 0);
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
 
             block.OnDisposeEvent += OnDisposeEvent;
@@ -33,11 +35,11 @@ namespace JP.Mytrix.Gameplay.Blocks
 
         private void OnPositionUpdatedEvent(int x, int y, PositionUpdateType updateType)
         {
-            targetPosition.x = x;
+            targetPosition.x = x + X_OFFSET;
             targetPosition.y = y;
 
             if(updateType == PositionUpdateType.Rotate)
-                transform.position = new Vector3(x, y, 0);
+                transform.position = new Vector3(x + X_OFFSET, y, 0);
         }
         
         private void Update()
