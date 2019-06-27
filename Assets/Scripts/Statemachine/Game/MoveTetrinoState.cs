@@ -36,6 +36,13 @@ namespace JP.Mytrix.Statemachine.Game
                     break;
             }
         }
+
+        public override void Update()
+        {
+
+
+
+        }
         
         private IEnumerator MoveTetrinoEnumerator()
         {

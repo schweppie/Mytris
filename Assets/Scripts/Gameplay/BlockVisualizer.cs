@@ -36,12 +36,12 @@ namespace JP.Mytrix.Gameplay
             targetPosition.x = x;
             targetPosition.y = y;
 
-            transform.position = new Vector3(x, y, 0);
+            //transform.position = new Vector3(x, y, 0);
         }
         
         private void Update()
         {
-            //transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
         }
 
 
