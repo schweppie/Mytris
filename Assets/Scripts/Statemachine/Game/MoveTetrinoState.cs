@@ -1,4 +1,3 @@
-using System.Collections;
 using JP.Mytrix.Input;
 using UnityEngine;
 
@@ -6,12 +5,13 @@ namespace JP.Mytrix.Statemachine.Game
 {
     public class MoveTetrinoState : BaseGameState
     {
-        private Coroutine moveTetrinoRoutine;
+        private float lastMoveTime;
 
         public override void Enter()
         {
-            moveTetrinoRoutine = tetrinoController.StartCoroutine(MoveTetrinoEnumerator());
             inputController.OnInputDownEvent += OnInputDownEvent;
+
+            lastMoveTime = Time.realtimeSinceStartup;
         }
 
         private void OnInputDownEvent(Inputs input)
@@ -35,31 +35,26 @@ namespace JP.Mytrix.Statemachine.Game
                         tetrinoController.MoveTetrino(-1, 0);                
                     break;
             }
+
+            if(!tetrinoController.CanMoveTetrino(0, -1))
+                lastMoveTime = Time.realtimeSinceStartup;
         }
 
         public override void Update()
         {
-
-
-
-        }
-        
-        private IEnumerator MoveTetrinoEnumerator()
-        {
-            while(true)
+            if(lastMoveTime + tetrinoController.MoveDuration < Time.realtimeSinceStartup)
             {
-                yield return new WaitForSeconds(tetrinoController.MoveDuration);
-                
                 if(tetrinoController.CanMoveTetrino(0, -1))
                     tetrinoController.MoveTetrino(0, -1);
                 else
                     gameStateMachine.ChangeTo(GameState.AddToGrid);
+
+                lastMoveTime = Time.realtimeSinceStartup;
             }
         }
-
+        
         public override void Exit()
         {
-            tetrinoController.StopCoroutine(moveTetrinoRoutine);
             inputController.OnInputDownEvent -= OnInputDownEvent;
         }
     }
