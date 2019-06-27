@@ -27,7 +27,7 @@ namespace JP.Mytrix.Gameplay
         {
             TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
 
-            Tetrino tetrino = new Tetrino(3,10, activeConfig);
+            Tetrino tetrino = new Tetrino(gridController.Grid.Width/2,gridController.Grid.Height- 5, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
 
             instance.Setup(tetrino);

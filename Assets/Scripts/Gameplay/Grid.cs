@@ -12,6 +12,7 @@ namespace JP.Mytrix.Gameplay
         private int height;
 
         public int Height => height;
+        public int Width => width;
 
         public Grid(int width, int height)
         {
