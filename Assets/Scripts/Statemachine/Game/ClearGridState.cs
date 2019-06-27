@@ -26,7 +26,7 @@ namespace JP.Mytrix.Statemachine.Game
                     grid.MoveGridDown(row);
                     gridFellDown = true;
                     row--;
-                    yield return new WaitForSeconds(tetrinoController.MoveDuration);
+                    yield return new WaitForSeconds(0.17f);
                 }
 
                 row++;

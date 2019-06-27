@@ -1,3 +1,4 @@
+using System;
 using JP.Mytris.Data;
 
 namespace JP.Mytrix.Gameplay.Blocks
@@ -10,7 +11,9 @@ namespace JP.Mytrix.Gameplay.Blocks
 
         public delegate void PositionUpdateDelegate(int x, int y, PositionUpdateType updateType);
         public event PositionUpdateDelegate PositionUpdatedEvent;
-        
+
+        public Action OnBounceAction;
+
         public Block(int x, int y, BlockConfig config)
         {
             X = x;
@@ -24,6 +27,12 @@ namespace JP.Mytrix.Gameplay.Blocks
             Y = y;
 
             DispatchPositionUpdatedEvent(updateType);
+        }
+
+        public void Bounce()
+        {
+            if(OnBounceAction!=null)
+                OnBounceAction();
         }
 
         private void DispatchPositionUpdatedEvent(PositionUpdateType updateType)

@@ -89,6 +89,9 @@ namespace JP.Mytrix.Gameplay
                     {
                         blockData[x+px, y+py] = tetrino.Blocks[blockIndex];
                         blockIndex++;
+
+                        // TOdo something visual, maybe better somewhere else in code?
+                        blockData[x+px, y+py].Bounce();
                     }
                 }
             }

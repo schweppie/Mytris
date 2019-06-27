@@ -16,25 +16,38 @@ namespace JP.Mytrix.Statemachine.Game
 
         private void OnInputDownEvent(Inputs input)
         {
+            bool madeMove = true;
+
             switch(input)
             {
                 case Inputs.Up:
                     if(tetrinoController.CanRotateTetrino())
                         tetrinoController.RotateTetrino();
+                    else
+                        madeMove = false;
                     break;
                 case Inputs.Right:
                     if(tetrinoController.CanMoveTetrino(1,0))
                         tetrinoController.MoveTetrino(1,0);
+                    else
+                        madeMove = false;                      
                     break;
                 case Inputs.Down:
                     if(tetrinoController.CanMoveTetrino(0, -1))
                         tetrinoController.MoveTetrino(0, -1);                
+                    else
+                        madeMove = false;                        
                     break;                
                 case Inputs.Left:
                     if(tetrinoController.CanMoveTetrino(-1, 0))
-                        tetrinoController.MoveTetrino(-1, 0);                
+                        tetrinoController.MoveTetrino(-1, 0);
+                    else
+                        madeMove = false;             
                     break;
             }
+
+            if(!madeMove)
+                tetrinoController.ShakeTetrino();
 
             if(!tetrinoController.CanMoveTetrino(0, -1))
                 lastMoveTime = Time.realtimeSinceStartup;

@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using DG.Tweening;
+using JP.Mytrix.Flow;
 using JP.Mytrix.Visualization;
 using UnityEngine;
 
@@ -6,6 +9,12 @@ namespace JP.Mytrix.Gameplay.Blocks
 {
     public class BlockVisualizer : DataVisualizer<Block>
     {
+        [SerializeField]
+        private Transform visualizerRoot;
+
+        [SerializeField]
+        private Transform blockRoot;
+        
         [SerializeField]
         private Renderer[] renderers;
 
@@ -18,18 +27,25 @@ namespace JP.Mytrix.Gameplay.Blocks
 
         private const float X_OFFSET = -5f;
         
+        private TetrinoController tetrinoController;
+
+        private const float DESTRUCTION_DURATION = 3f;
+
         public override void Setup(Block block)
         {
             this.block = block;
             
             transform.position = new Vector3(block.X + X_OFFSET, block.Y, 0);
-            block.PositionUpdatedEvent += OnPositionUpdatedEvent;
 
+            block.PositionUpdatedEvent += OnPositionUpdatedEvent;
             block.OnDisposeEvent += OnDisposeEvent;
+            block.OnBounceAction += Bounce;
 
             targetPosition = transform.position;
 
             transform.position = targetPosition;
+
+            tetrinoController = Locator.Instance.Get<TetrinoController>();
         }
 
         public void SetColor(Color color)
@@ -52,6 +68,31 @@ namespace JP.Mytrix.Gameplay.Blocks
             transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
         }
 
+        public void Shake()
+        {
+            ResetShake();
+            visualizerRoot.DOShakePosition(0.3f, 0.25f, 50).onComplete += ResetShake;
+        }
+
+        private void ResetShake()
+        {
+            visualizerRoot.DOKill();
+            visualizerRoot.localPosition = Vector3.zero;
+        }
+
+        public void Bounce()
+        {
+            ResetBounce();
+            blockRoot.localScale = Vector3.one * 1.3f;
+            blockRoot.DOScale(Vector3.one, 0.4f).SetEase(Ease.OutElastic);
+        }
+
+        public void ResetBounce()
+        {
+            blockRoot.DOKill();
+            blockRoot.localScale = Vector3.one;
+        }
+
         private IEnumerator DestructionEnumerator()
         {
             Vector3 randomDirection = new Vector3();
@@ -62,17 +103,20 @@ namespace JP.Mytrix.Gameplay.Blocks
 
                 rigidbody.isKinematic = false;
 
-                randomDirection.x = Random.Range(-0.2f, 0.2f);
-                randomDirection.y = Random.Range( 0.5f, 1f);
-                randomDirection.z = Random.Range(-1f, 1f);
+                randomDirection.x = UnityEngine.Random.Range(-0.2f, 0.2f);
+                randomDirection.y = UnityEngine.Random.Range( 0.5f, 1f);
+                randomDirection.z = UnityEngine.Random.Range(-1f, 1f);
 
                 randomDirection.Normalize();
 
-                rigidbody.AddForce(randomDirection * Random.Range(30f,40f), ForceMode.VelocityChange);
-                rigidbody.AddTorque(randomDirection * Random.Range(100f,150f), ForceMode.VelocityChange);
+                rigidbody.AddForce(randomDirection * UnityEngine.Random.Range(30f,40f), ForceMode.VelocityChange);
+                rigidbody.AddTorque(randomDirection * UnityEngine.Random.Range(100f,150f), ForceMode.VelocityChange);
+
+                float randomScaleDuration = UnityEngine.Random.Range(0.3f, 1.5f);
+                rigidbody.transform.DOScale(Vector3.zero, randomScaleDuration).SetDelay(DESTRUCTION_DURATION - randomScaleDuration);
             }
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(DESTRUCTION_DURATION);
 
             Destroy(this.gameObject);
         }
@@ -81,6 +125,7 @@ namespace JP.Mytrix.Gameplay.Blocks
         {
             block.PositionUpdatedEvent -= OnPositionUpdatedEvent;
             block.OnDisposeEvent -= OnDisposeEvent;
+            block.OnBounceAction -= Bounce;
 
             StartCoroutine(DestructionEnumerator());
         }

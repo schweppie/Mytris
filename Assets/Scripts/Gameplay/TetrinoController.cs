@@ -46,6 +46,11 @@ namespace JP.Mytrix.Gameplay
             activeTetrino.Rotate();
         }
 
+        public void ShakeTetrino()
+        {
+            activeTetrino.Shake();
+        }
+
         public bool CanMoveTetrino(int xOffset, int yOffset)
         {
             return gridController.Grid.CanTetrinoFit(activeTetrino, activeTetrino.X+xOffset, activeTetrino.Y+yOffset, activeTetrino.PatternIndex);

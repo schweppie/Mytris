@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JP.Mytris.Data;
 using JP.Mytrix.Gameplay.Blocks;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace JP.Mytrix.Gameplay
         public List<Block> Blocks { get; private set; }
         
         public int PatternIndex {get ; private set;}
+
+        public Action OnTetrinoShakeAction;
 
         private enum UpdateType
         {
@@ -87,6 +90,12 @@ namespace JP.Mytrix.Gameplay
             UpdateTetrino(UpdateType.Position);
         }
 
+
+        public void Shake()
+        {
+            if(OnTetrinoShakeAction!=null)
+                OnTetrinoShakeAction();
+        }
         public void DebugDraw()
         {
 
