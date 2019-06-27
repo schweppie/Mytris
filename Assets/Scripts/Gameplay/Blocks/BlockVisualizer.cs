@@ -71,7 +71,7 @@ namespace JP.Mytrix.Gameplay.Blocks
         public void Shake()
         {
             ResetShake();
-            visualizerRoot.DOShakePosition(0.3f, 0.25f, 50).onComplete += ResetShake;
+            visualizerRoot.DOShakePosition(0.2f, 0.25f, 30).onComplete += ResetShake;
         }
 
         private void ResetShake()
