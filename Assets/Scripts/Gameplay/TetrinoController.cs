@@ -1,4 +1,5 @@
 using JP.Mytris.Data;
+using JP.Mytrix.Flow;
 using UnityEngine;
 
 namespace JP.Mytrix.Gameplay
@@ -10,8 +11,13 @@ namespace JP.Mytrix.Gameplay
         public Tetrino activeTetrino;
 
         private int angle = 0;
-        
-        public static Grid Grid = new Grid(10,14);
+
+        private GridController gridController;
+
+        public void Setup()
+        {
+            gridController = Locator.Instance.Get<GridController>();
+        }
 
         public void SpawnTetrino()
         {
@@ -38,12 +44,12 @@ namespace JP.Mytrix.Gameplay
 
         public bool CanMoveTetrino(int xOffset, int yOffset)
         {
-            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X+xOffset, activeTetrino.Y+yOffset, activeTetrino.PatternIndex);
+            return gridController.Grid.CanTetrinoFit(activeTetrino, activeTetrino.X+xOffset, activeTetrino.Y+yOffset, activeTetrino.PatternIndex);
         }
 
         public bool CanRotateTetrino()
         {
-            return Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1);
+            return gridController.Grid.CanTetrinoFit(activeTetrino, activeTetrino.X, activeTetrino.Y, activeTetrino.PatternIndex + 1);
         }
 
         public void AddTetrinoToBoard()
@@ -54,24 +60,22 @@ namespace JP.Mytrix.Gameplay
 
         private void PlaceTetrino()
         {
-            Grid.AddTetrino(activeTetrino);
+            gridController.Grid.AddTetrino(activeTetrino);
         }
 
         private void Update()
         {
-            Grid.DebugDraw();
-
             if(activeTetrino!=null)
                 activeTetrino.DebugDraw();
 
             if(UnityEngine.Input.GetKeyDown(KeyCode.F1))
-                Grid.ClearRow(0);
+                gridController.Grid.ClearRow(0);
             if(UnityEngine.Input.GetKeyDown(KeyCode.F2))
-                Grid.ClearRow(1);
+                gridController.Grid.ClearRow(1);
             if(UnityEngine.Input.GetKeyDown(KeyCode.F3))
-                Grid.ClearRow(2);
+                gridController.Grid.ClearRow(2);
             if(UnityEngine.Input.GetKeyDown(KeyCode.F4))
-                Grid.ClearRow(3);
+                gridController.Grid.ClearRow(3);
         }
     }
     

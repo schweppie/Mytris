@@ -4,6 +4,9 @@ namespace JP.Mytrix.Statemachine.Game
     {
         public override void Enter()
         {
+            gridController.Setup(10,14);
+            tetrinoController.Setup();
+
             gameStateMachine.ChangeTo(GameState.SpawnTetrino);
         }
     }

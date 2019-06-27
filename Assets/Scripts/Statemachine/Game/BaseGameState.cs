@@ -8,14 +8,16 @@ namespace JP.Mytrix.Statemachine.Game
     {
         protected TetrinoController tetrinoController;
         protected GameStateMachine gameStateMachine;
-
         protected InputController inputController;
+
+        protected GridController gridController;
 
         public override void Initialize()
         {
             tetrinoController = Locator.Instance.Get<TetrinoController>();
             gameStateMachine = Locator.Instance.Get<GameStateMachine>();
             inputController = Locator.Instance.Get<InputController>();
+            gridController = Locator.Instance.Get<GridController>();
         }
     }
 }
