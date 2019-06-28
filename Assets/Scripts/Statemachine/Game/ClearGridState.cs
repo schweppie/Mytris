@@ -15,7 +15,7 @@ namespace JP.Mytrix.Statemachine.Game
         private IEnumerator ClearGridEnumerator()
         {
             int row=0;
-            JP.Mytrix.Gameplay.Grid grid = gridController.Grid;    
+            Gameplay.Grid grid = gridController.Grid;    
 
             bool gridFellDown = false;
             while(row < grid.Height)

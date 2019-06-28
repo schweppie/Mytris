@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cfde2100671f1740b2d4162036f06f4, type: 3}
-  m_Name: jTetrinoConfig
+  m_Name: DebugTetrinoConfig
   m_EditorClassIdentifier: 
   BlockConfig: {fileID: 11400000, guid: cd800b487373d8346a9b8ef8d8c0782f, type: 2}
   TetrinoVisualizer: {fileID: 7647352359768446191, guid: 6d55d0c526f664544bdd30c0ea2cfae3,
     type: 3}
-  Color: {r: 1, g: 0.5700912, b: 0, a: 0}
+  Color: {r: 0.3301887, g: 0.15861893, b: 0.12304201, a: 1}
   PatternWidth: 5
   PatternHeight: 5
   Patterns:
-  - data: 00000000000000000000000000000000010101000001000000
-  - data: 00000000000000000000000001000000000100000000010100
-  - data: 00000000000000000000000000000000000001000001010100
-  - data: 00000000000000000000000101000000000100000000010000
+  - data: 01010101010101010101010101010101010101010101010101

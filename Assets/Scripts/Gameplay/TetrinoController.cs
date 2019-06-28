@@ -6,6 +6,9 @@ namespace JP.Mytrix.Gameplay
 {
     public class TetrinoController : MonoBehaviour
     {
+
+        public TetrinoConfig editorConfig;
+
         public TetrinoConfig[] config;
 
         public Tetrino activeTetrino;
@@ -25,7 +28,12 @@ namespace JP.Mytrix.Gameplay
 
         public void SpawnTetrino()
         {
-            TetrinoConfig activeConfig = config[Random.Range(0, config.Length)];
+            TetrinoConfig activeConfig;
+
+            if (editorConfig == null)
+                activeConfig = config[Random.Range(0, config.Length)];
+            else
+                activeConfig = editorConfig;
 
             Tetrino tetrino = new Tetrino(gridController.Grid.Width/2,gridController.Grid.Height- 5, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
