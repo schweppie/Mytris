@@ -16,6 +16,7 @@ namespace JP.Mytrix.Statemachine.Game
         private IEnumerator AddTetrinoToGridEnumerator()
         {
             tetrinoController.AddTetrinoToBoard();
+            cameraController.AddTrauma(0.3f);
             yield return new WaitForSeconds(tetrinoController.MoveDuration);
             gameStateMachine.ChangeTo(GameState.ClearGrid);
         }

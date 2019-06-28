@@ -35,8 +35,6 @@ namespace JP.Mytrix.Statemachine.Game
                 case Inputs.Down:
                     if(tetrinoController.CanMoveTetrino(0, -1))
                         tetrinoController.MoveTetrino(0, -1);                
-                    else
-                        madeMove = false;                        
                     break;                
                 case Inputs.Left:
                     if(tetrinoController.CanMoveTetrino(-1, 0))

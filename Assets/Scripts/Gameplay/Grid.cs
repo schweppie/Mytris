@@ -47,6 +47,8 @@ namespace JP.Mytrix.Gameplay
         {
             TetrinoPattern pattern = tetrino.Config.Patterns[rotationIndex % tetrino.Config.Patterns.Count];
 
+            
+            
             bool canfit = true;
 
             for(int py = 0; py < pattern.Height; py++)

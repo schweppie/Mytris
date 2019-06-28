@@ -28,6 +28,7 @@ namespace JP.Mytrix.Gameplay.Blocks
         private const float X_OFFSET = -5f;
         
         private TetrinoController tetrinoController;
+        private CameraController cameraController;
 
         private const float DESTRUCTION_DURATION = 3f;
 
@@ -46,6 +47,7 @@ namespace JP.Mytrix.Gameplay.Blocks
             transform.position = targetPosition;
 
             tetrinoController = Locator.Instance.Get<TetrinoController>();
+            cameraController = Locator.Instance.Get<CameraController>();
         }
 
         public void SetColor(Color color)
@@ -71,7 +73,8 @@ namespace JP.Mytrix.Gameplay.Blocks
         public void Shake()
         {
             ResetShake();
-            visualizerRoot.DOShakePosition(0.2f, 0.25f, 30).onComplete += ResetShake;
+            visualizerRoot.DOShakePosition(0.2f, 0.1f, 30).onComplete += ResetShake;
+            cameraController.AddTrauma(0.05f);
         }
 
         private void ResetShake()

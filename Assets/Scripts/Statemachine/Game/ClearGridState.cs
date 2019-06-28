@@ -26,6 +26,8 @@ namespace JP.Mytrix.Statemachine.Game
                     grid.MoveGridDown(row);
                     gridFellDown = true;
                     row--;
+
+                    cameraController.AddTrauma(0.3f);
                     yield return new WaitForSeconds(0.17f);
                 }
 
