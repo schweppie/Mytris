@@ -106,10 +106,10 @@ namespace JP.Mytrix.Gameplay
                     if(!pattern.GetValue(x,y))
                         continue;
 
-                    Vector3 p1 = new Vector3(x + X- 5f, y + Y, 0);
-                    Vector3 p2 = new Vector3(x+1+ X- 5f, y+ Y);
-                    Vector3 p3 = new Vector3(x+ X- 5f, y+1+ Y);
-                    Vector3 p4 = new Vector3(x+1+ X- 5f, y+1+ Y);;                    
+                    Vector3 p1 = new Vector3(x + X- 5f, y + Y, 1);
+                    Vector3 p2 = new Vector3(x+1+ X- 5f, y+ Y, 1);
+                    Vector3 p3 = new Vector3(x+ X- 5f, y+1+ Y, 1);
+                    Vector3 p4 = new Vector3(x+1+ X- 5f, y+1+ Y, 1);                    
 
                     Debug.DrawLine(p1, p2, Color.red);
                     Debug.DrawLine(p1, p3, Color.red);
@@ -118,10 +118,10 @@ namespace JP.Mytrix.Gameplay
                 }
             }
 
-            Vector3 pt1 = new Vector3(X, Y- 5f, 0);
-            Vector3 pt2 = new Vector3(X + pattern.Width- 5f, Y, 0);
-            Vector3 pt3 = new Vector3(X, Y + pattern.Height- 5f, 0);
-            Vector3 pt4 = new Vector3(X + pattern.Width- 5f, Y + pattern.Height, 0);;                    
+            Vector3 pt1 = new Vector3(X - 5f, Y, 1);
+            Vector3 pt2 = new Vector3(X + pattern.Width- 5f, Y, 1);
+            Vector3 pt3 = new Vector3(X - 5f, Y + pattern.Height, 1);
+            Vector3 pt4 = new Vector3(X + pattern.Width- 5f, Y + pattern.Height, 1);                  
 
             Debug.DrawLine(pt1, pt2, Color.green);
             Debug.DrawLine(pt1, pt3, Color.green);

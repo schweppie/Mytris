@@ -11,6 +11,7 @@ namespace JP.Mytrix.Statemachine.Game
         protected InputController inputController;
         protected GridController gridController;
         protected CameraController cameraController;
+        protected ScoreController scoreController;
 
         public override void Initialize()
         {
@@ -19,6 +20,7 @@ namespace JP.Mytrix.Statemachine.Game
             inputController = Locator.Instance.Get<InputController>();
             gridController = Locator.Instance.Get<GridController>();
             cameraController = Locator.Instance.Get<CameraController>();
+            scoreController = Locator.Instance.Get<ScoreController>();
         }
     }
 }
