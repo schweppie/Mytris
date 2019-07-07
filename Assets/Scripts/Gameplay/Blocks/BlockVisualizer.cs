@@ -38,6 +38,8 @@ namespace JP.Mytrix.Gameplay.Blocks
             
             transform.localPosition = new Vector3(block.X, block.Y, 0);
 
+            targetPosition = transform.localPosition;
+
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
             block.OnDisposeEvent += OnDisposeEvent;
             block.OnBounceAction += Bounce;
