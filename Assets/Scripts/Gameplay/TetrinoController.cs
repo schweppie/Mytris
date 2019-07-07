@@ -17,6 +17,8 @@ namespace JP.Mytrix.Gameplay
 
         private GridController gridController;
 
+        public Transform VisualizersRoot;
+
         public float MoveDuration { get; private set;}
 
         public void Setup()
@@ -38,9 +40,9 @@ namespace JP.Mytrix.Gameplay
             Tetrino tetrino = new Tetrino(gridController.Grid.Width/2,gridController.Grid.Height- 5, activeConfig);
             TetrinoVisualizer instance = Instantiate(activeConfig.TetrinoVisualizer);
 
+            instance.transform.SetParent(VisualizersRoot);
             instance.Setup(tetrino);
-            instance.transform.SetParent(this.transform);
-
+            
             activeTetrino = tetrino;
         }
 

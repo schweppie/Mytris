@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using JP.Mytrix.Flow;
@@ -23,28 +22,25 @@ namespace JP.Mytrix.Gameplay.Blocks
 
         private Block block;
         
-        private Vector3 targetPosition;
-
-        private const float X_OFFSET = -5f;
-        
         private TetrinoController tetrinoController;
         private CameraController cameraController;
+        private GridController gridController;
+
+        private Vector3 targetPosition = new Vector3();
 
         private const float DESTRUCTION_DURATION = 3f;
+
+        private Block.UpdateType updateType;
 
         public override void Setup(Block block)
         {
             this.block = block;
             
-            transform.position = new Vector3(block.X + X_OFFSET, block.Y, 0);
+            transform.localPosition = new Vector3(block.X, block.Y, 0);
 
             block.PositionUpdatedEvent += OnPositionUpdatedEvent;
             block.OnDisposeEvent += OnDisposeEvent;
             block.OnBounceAction += Bounce;
-
-            targetPosition = transform.position;
-
-            transform.position = targetPosition;
 
             tetrinoController = Locator.Instance.Get<TetrinoController>();
             cameraController = Locator.Instance.Get<CameraController>();
@@ -56,18 +52,20 @@ namespace JP.Mytrix.Gameplay.Blocks
                 renderers[i].material.SetColor("_Color", color);
         }
 
-        private void OnPositionUpdatedEvent(int x, int y, PositionUpdateType updateType)
+        private void OnPositionUpdatedEvent(int x, int y, Block.UpdateType updateType)
         {
-            targetPosition.x = x + X_OFFSET;
+            targetPosition.x = x;
             targetPosition.y = y;
 
-            if(updateType == PositionUpdateType.Rotate)
-                transform.position = new Vector3(x + X_OFFSET, y, 0);
+            this.updateType = updateType;
         }
-        
+
         private void Update()
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.3f);
+            if (updateType == Block.UpdateType.Instant)
+                transform.localPosition = targetPosition;
+            else
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, 0.3f);
         }
 
         public void Shake()

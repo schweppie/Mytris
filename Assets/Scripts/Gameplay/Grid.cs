@@ -138,7 +138,7 @@ namespace JP.Mytrix.Gameplay
                     if(block!=null)
                     {
                         blockData[i,j] = block;
-                        block.SetPosition(i,j, PositionUpdateType.Default);
+                        block.SetPosition(i,j, Block.UpdateType.Interpolated);
 
                         blockData[i,j+1] = null;
                     }
