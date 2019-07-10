@@ -14,15 +14,31 @@ namespace JP.Mytrix.Gameplay
         public int Y {get; private set;}
 
         private TetrinoPattern pattern;
-        public TetrinoPattern Pattern { get{ return pattern; }}
+        public TetrinoPattern Pattern => pattern;
 
         public List<Block> Blocks { get; private set; }
         
         public int PatternIndex {get ; private set;}
 
         public Action OnTetrinoShakeAction;
+
         public delegate void PositionUpdateDelegate(int x, int y);
         public event PositionUpdateDelegate OnPositionUpdatedEvent;
+
+        public delegate void StateUpdatedDelegate(State state);
+        public event StateUpdatedDelegate OnStateUpdatedEvent;
+
+        private TetrinoContainer container;
+        public TetrinoContainer Container => container;
+        
+
+        public enum State
+        {
+            OnGrid,
+            OnStack,
+        }
+
+        private State tetrinoState;
 
         public Tetrino(int x, int y, TetrinoConfig config)
         {
@@ -45,6 +61,21 @@ namespace JP.Mytrix.Gameplay
                     Blocks.Add(block);
                 }
             }
+        }
+
+        public void MoveToContainer(TetrinoContainer container)
+        {
+            tetrinoState = State.OnStack;
+            this.container = container;
+
+            DispatchOStateUpdatedEvent();
+        }
+
+        public void MoveToGrid()
+        {
+            tetrinoState = State.OnGrid;
+
+            DispatchOStateUpdatedEvent();
         }
 
         public override void Dispose()
@@ -116,6 +147,12 @@ namespace JP.Mytrix.Gameplay
         {
             if (OnPositionUpdatedEvent != null)
                 OnPositionUpdatedEvent(X, Y);
+        }
+
+        private void DispatchOStateUpdatedEvent()
+        {
+            if (OnStateUpdatedEvent != null)
+                OnStateUpdatedEvent(tetrinoState);
         }
 
         public void DebugDraw()

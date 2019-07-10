@@ -1,4 +1,5 @@
 ﻿using JP.Mytris.Data;
+using JP.Mytrix.Flow;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,49 +8,77 @@ namespace JP.Mytrix.Gameplay
     public class TetrinoSpawner : MonoBehaviour
     {
         [SerializeField]
+        private TetrinoContainerVisualizer tetrinoContainerVisualizerPrefab;
+
+        [SerializeField]
+        private TetrinoConfig editorConfig;
+
+        [SerializeField]
         private TetrinoConfig[] configs;
 
-        private List<TetrinoContainer> tetrinoContainters = new List<TetrinoContainer>();
+        public Transform ContainerStartTransform;
+        public Transform ContainerEndTransform;
 
-        private const int STACK_SIZE = 3;
+        public Transform[] ContainerPositions;
 
-        public delegate void TetrinoSpawnedDelegate(TetrinoConfig config);
+        private List<TetrinoContainer> tetrinoContainers = new List<TetrinoContainer>();
+
+        public delegate void TetrinoSpawnedDelegate(Tetrino config);
         public event TetrinoSpawnedDelegate OnTetrinoSpawnedEvent;
+
+        private GridController gridController;
 
         public void Setup()
         {
-            tetrinoContainters.Clear();
+            gridController = Locator.Instance.Get<GridController>();
 
-            for (int i = 0; i < STACK_SIZE; i++)
-            {
-                TetrinoContainer tetrinoContainer = new TetrinoContainer(i, configs[Random.Range(0, configs.Length)]);
-                tetrinoContainters.Add(tetrinoContainer);
-            }
+            tetrinoContainers.Clear();
+
+            for (int i = 0; i < ContainerPositions.Length; i++)
+                SpawnTetrinoContainer(i);
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.O))
+                SpawnTetrino();
         }
 
         public void SpawnTetrino()
         {
-            if (tetrinoContainters.Count == 0)
+            if (tetrinoContainers.Count == 0)
                 return;
 
-            TetrinoContainer tetrinoContainer = tetrinoContainters[0];
+            TetrinoContainer tetrinoContainer = tetrinoContainers[0];
+            tetrinoContainers.RemoveAt(0);
+
+            for (int i = 0; i < tetrinoContainers.Count; i++)
+                tetrinoContainers[i].MoveUp();
+
+            DispatchOnTetrinoSpawnedEvent(tetrinoContainer.Tetrino);
+
             tetrinoContainer.Dispose();
 
-            tetrinoContainters.RemoveAt(0);
-
-            for (int i = 0; i < tetrinoContainters.Count; i++)
-                tetrinoContainters[i].MoveUp();
-
-            TetrinoContainer newTetrinoContainer = new TetrinoContainer(tetrinoContainters.Count - 1, configs[Random.Range(0, configs.Length)]);
-            tetrinoContainters.Add(newTetrinoContainer);
-
-            DispatchOnTetrinoSpawnedEvent(tetrinoContainer.Config);
+            SpawnTetrinoContainer(ContainerPositions.Length-1);
         }
 
-        private void DispatchOnTetrinoSpawnedEvent(TetrinoConfig config)
+        public void SpawnTetrinoContainer(int index)
+        {
+            Tetrino tetrino = new Tetrino(gridController.Grid.Width / 2, gridController.Grid.Height - 5, configs[Random.Range(0, configs.Length)]);
+            TetrinoContainerVisualizer visualizer = Instantiate(tetrinoContainerVisualizerPrefab);
+
+            TetrinoContainer tetrinoContainer = new TetrinoContainer(index, tetrino);
+            tetrinoContainers.Add(tetrinoContainer);
+
+            visualizer.Setup(tetrinoContainer);
+
+            tetrino.MoveToContainer(tetrinoContainer);
+        }
+
+        private void DispatchOnTetrinoSpawnedEvent(Tetrino tetrino)
         {
             if (OnTetrinoSpawnedEvent != null)
-                OnTetrinoSpawnedEvent(config);
+                OnTetrinoSpawnedEvent(tetrino);
         }
     }
 }

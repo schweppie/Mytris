@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JP.Mytrix.Flow;
 using JP.Mytrix.Gameplay.Blocks;
@@ -14,11 +15,11 @@ namespace JP.Mytrix.Gameplay
 
         private Vector3 position;
 
-        private Vector3 testPosition;
-
         private TetrinoController tetrinoController;
 
         private Vector3 centerPosition;
+
+
 
         public override void Setup(Tetrino tetrino)
         {
@@ -35,6 +36,7 @@ namespace JP.Mytrix.Gameplay
             tetrino.OnDisposeEvent += OnDisposeEvent;
             tetrino.OnTetrinoShakeAction += Shake;
             tetrino.OnPositionUpdatedEvent += OnPositionUpdated;
+            tetrino.OnStateUpdatedEvent += OnStateUpdated;
 
             for (int i = 0; i < tetrino.Blocks.Count; i++)
             {
@@ -51,8 +53,15 @@ namespace JP.Mytrix.Gameplay
             }
 
             centerPosition /= tetrino.Blocks.Count;
+        }
 
-            testPosition = tetrinoController.TestRoot.transform.position;
+        private void OnStateUpdated(Tetrino.State state)
+        {
+            if(state == Tetrino.State.OnStack)
+            {
+                transform.SetParent(tetrinoController.TestRoot);
+            }
+
         }
 
         private void Update()
@@ -68,9 +77,9 @@ namespace JP.Mytrix.Gameplay
         }
 
 
-        public void ToTestPosition()
+        public void ToContainerPosition()
         {
-            transform.SetParent(tetrinoController.TestRoot);
+            transform.SetParent(tetrino.Container);
             transform.localPosition = Vector3.Lerp(transform.localPosition, -centerPosition, 0.3f);
         }
 

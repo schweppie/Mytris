@@ -6,6 +6,7 @@ namespace JP.Mytrix.Statemachine.Game
         {
             gridController.Setup(10,24);
             tetrinoController.Setup();
+            tetrinoSpawner.Setup();
 
             gameStateMachine.ChangeTo(GameState.SpawnTetrino);
         }

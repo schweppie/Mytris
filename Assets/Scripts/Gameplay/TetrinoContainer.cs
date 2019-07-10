@@ -5,17 +5,18 @@ namespace JP.Mytrix.Gameplay
     public class TetrinoContainer : DisposableData
     {
         private int position;
+        public int Position => position;
 
-        private TetrinoConfig config;
-        public TetrinoConfig Config => config;
+        private Tetrino tetrino;
+        public Tetrino Tetrino => tetrino;
 
         public delegate void PositionUpdateDelegate(int position);
         public event PositionUpdateDelegate OnPositionUpdateEvent;
 
-        public TetrinoContainer (int position, TetrinoConfig config)
+        public TetrinoContainer (int position, Tetrino config)
         {
             this.position = position;
-            this.config = config;
+            this.tetrino = config;
         }
 
         public void MoveUp()

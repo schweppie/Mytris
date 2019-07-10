@@ -12,6 +12,7 @@ namespace JP.Mytrix.Statemachine.Game
         protected GridController gridController;
         protected CameraController cameraController;
         protected ScoreController scoreController;
+        protected TetrinoSpawner tetrinoSpawner;
 
         public override void Initialize()
         {
@@ -21,6 +22,7 @@ namespace JP.Mytrix.Statemachine.Game
             gridController = Locator.Instance.Get<GridController>();
             cameraController = Locator.Instance.Get<CameraController>();
             scoreController = Locator.Instance.Get<ScoreController>();
+            tetrinoSpawner = Locator.Instance.Get<TetrinoSpawner>();
         }
     }
 }
