@@ -57,11 +57,14 @@ namespace JP.Mytrix.Gameplay
 
         private void Update()
         {
+            /*
             if (UnityEngine.Input.GetKeyDown(KeyCode.H))
                 ToTestPosition();
             if (UnityEngine.Input.GetKeyDown(KeyCode.B))
                 ToGamePosition();
+            */
 
+            ToGamePosition();
         }
 
 
