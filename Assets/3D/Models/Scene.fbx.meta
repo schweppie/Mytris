@@ -14,6 +14,7 @@ ModelImporter:
     100016: Cube.003
     100018: Cube.004
     100020: Cube.005
+    100022: Lift
     400000: Beams
     400002: Ground
     400004: //RootNode
@@ -25,6 +26,7 @@ ModelImporter:
     400016: Cube.003
     400018: Cube.004
     400020: Cube.005
+    400022: Lift
     2100000: No Name
     2300000: Beams
     2300002: Ground
@@ -37,6 +39,7 @@ ModelImporter:
     2300016: Cube.003
     2300018: Cube.004
     2300020: Cube.005
+    2300022: Lift
     3300000: Beams
     3300002: Ground
     3300004: //RootNode
@@ -48,6 +51,7 @@ ModelImporter:
     3300016: Cube.003
     3300018: Cube.004
     3300020: Cube.005
+    3300022: Lift
     4300000: Ground
     4300002: Beams
     4300004: Cube.005
@@ -58,6 +62,7 @@ ModelImporter:
     4300014: Cube
     4300016: Barrel.001
     4300018: Barrel
+    4300020: Lift
   externalObjects: {}
   materials:
     importMaterials: 1
