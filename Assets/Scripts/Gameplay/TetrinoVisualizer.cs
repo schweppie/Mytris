@@ -14,7 +14,11 @@ namespace JP.Mytrix.Gameplay
 
         private Vector3 position;
 
+        private Vector3 testPosition;
+
         private TetrinoController tetrinoController;
+
+        private Vector3 centerPosition;
 
         public override void Setup(Tetrino tetrino)
         {
@@ -42,11 +46,34 @@ namespace JP.Mytrix.Gameplay
                 blockVisualizer.SetColor(tetrino.Config.Color);
 
                 blocks.Add(blockVisualizer);
+
+                centerPosition += blockVisualizer.transform.localPosition;
             }
+
+            centerPosition /= tetrino.Blocks.Count;
+
+            testPosition = tetrinoController.TestRoot.transform.position;
         }
 
         private void Update()
         {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.H))
+                ToTestPosition();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.B))
+                ToGamePosition();
+
+        }
+
+
+        public void ToTestPosition()
+        {
+            transform.SetParent(tetrinoController.TestRoot);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, -centerPosition, 0.3f);
+        }
+
+        public void ToGamePosition()
+        {
+            transform.SetParent(tetrinoController.VisualizersRoot);
             transform.localPosition = Vector3.Lerp(transform.localPosition, position, 0.3f);
         }
 

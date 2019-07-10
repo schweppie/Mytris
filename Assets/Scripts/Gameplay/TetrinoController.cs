@@ -19,6 +19,8 @@ namespace JP.Mytrix.Gameplay
 
         public Transform VisualizersRoot;
 
+        public Transform TestRoot;
+
         public float MoveDuration { get; private set;}
 
         public void Setup()

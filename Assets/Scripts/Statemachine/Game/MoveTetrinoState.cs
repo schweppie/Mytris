@@ -53,6 +53,8 @@ namespace JP.Mytrix.Statemachine.Game
 
         public override void Update()
         {
+            return;
+
             if(lastMoveTime + tetrinoController.MoveDuration < Time.realtimeSinceStartup)
             {
                 if(tetrinoController.CanMoveTetrino(0, -1))
