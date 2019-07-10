@@ -21,12 +21,8 @@ namespace JP.Mytrix.Gameplay
         public int PatternIndex {get ; private set;}
 
         public Action OnTetrinoShakeAction;
-
-        private enum UpdateType
-        {
-            Position,
-            Rotation,
-        }
+        public delegate void PositionUpdateDelegate(int x, int y);
+        public event PositionUpdateDelegate OnPositionUpdatedEvent;
 
         public Tetrino(int x, int y, TetrinoConfig config)
         {
@@ -45,13 +41,31 @@ namespace JP.Mytrix.Gameplay
                     if(!pattern.GetValue(bx,by))
                         continue;
 
-                    Block block = new Block(bx + x, by + y, Config.BlockConfig);
+                    Block block = new Block(bx, by, Config.BlockConfig);
                     Blocks.Add(block);
                 }
             }
         }
 
-        private void UpdateTetrino(UpdateType updateType)
+        public override void Dispose()
+        {
+            int blockIndex = 0;
+            for (int by = 0; by < Config.PatternHeight; by++)
+            {
+                for (int bx = 0; bx < Config.PatternWidth; bx++)
+                {
+                    if (!pattern.GetValue(bx, by))
+                        continue;
+
+                    Blocks[blockIndex].SetPosition(bx + X, by + Y, Block.UpdateType.Instant);
+                    blockIndex++;
+                }
+            }
+
+            base.Dispose();
+        }
+
+        private void UpdateTetrino()
         {
             PopulatePattern();
 
@@ -63,9 +77,7 @@ namespace JP.Mytrix.Gameplay
                     if(!pattern.GetValue(bx,by))
                         continue;
                     
-                    PositionUpdateType blockUpdateType = (updateType == UpdateType.Position ) ? PositionUpdateType.Move : PositionUpdateType.Rotate;
-
-                    Blocks[blockIndex].SetPosition(bx + X, by + Y, blockUpdateType);
+                    Blocks[blockIndex].SetPosition(bx, by, Block.UpdateType.Instant);
                     blockIndex++;
                 }
             }
@@ -79,7 +91,7 @@ namespace JP.Mytrix.Gameplay
         public void Rotate()
         {
             PatternIndex = (PatternIndex + 1) % Config.Patterns.Count;
-            UpdateTetrino(UpdateType.Rotation);
+            UpdateTetrino();
         }
 
         public void Move(int x, int y)
@@ -87,7 +99,9 @@ namespace JP.Mytrix.Gameplay
             this.X += x;
             this.Y += y;
 
-            UpdateTetrino(UpdateType.Position);
+            UpdateTetrino();
+
+            DispatchPositionUpdatedEvent();
         }
 
 
@@ -96,6 +110,14 @@ namespace JP.Mytrix.Gameplay
             if(OnTetrinoShakeAction!=null)
                 OnTetrinoShakeAction();
         }
+
+
+        private void DispatchPositionUpdatedEvent()
+        {
+            if (OnPositionUpdatedEvent != null)
+                OnPositionUpdatedEvent(X, Y);
+        }
+
         public void DebugDraw()
         {
 

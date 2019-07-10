@@ -9,10 +9,16 @@ namespace JP.Mytrix.Gameplay.Blocks
         public int Y {get; private set;}
         public BlockConfig Config { get; private set; }
 
-        public delegate void PositionUpdateDelegate(int x, int y, PositionUpdateType updateType);
+        public delegate void PositionUpdateDelegate(int x, int y, UpdateType updateType);
         public event PositionUpdateDelegate PositionUpdatedEvent;
 
         public Action OnBounceAction;
+
+        public enum UpdateType
+        {
+            Instant,
+            Interpolated,
+        }
 
         public Block(int x, int y, BlockConfig config)
         {
@@ -21,7 +27,7 @@ namespace JP.Mytrix.Gameplay.Blocks
             Config = config;
         }
 
-        public void SetPosition(int x, int y, PositionUpdateType updateType)
+        public void SetPosition(int x, int y, UpdateType updateType)
         {
             X = x;
             Y = y;
@@ -35,7 +41,7 @@ namespace JP.Mytrix.Gameplay.Blocks
                 OnBounceAction();
         }
 
-        private void DispatchPositionUpdatedEvent(PositionUpdateType updateType)
+        private void DispatchPositionUpdatedEvent(UpdateType updateType)
         {
             if (PositionUpdatedEvent != null)
                 PositionUpdatedEvent(X, Y, updateType);
