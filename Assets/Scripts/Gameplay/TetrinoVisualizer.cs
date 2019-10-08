@@ -79,7 +79,7 @@ namespace JP.Mytrix.Gameplay
 
         public void ToContainerPosition()
         {
-            transform.SetParent(tetrino.Container);
+           // transform.SetParent(tetrino.Container);
             transform.localPosition = Vector3.Lerp(transform.localPosition, -centerPosition, 0.3f);
         }
 

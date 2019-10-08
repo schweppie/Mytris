@@ -12,6 +12,7 @@ namespace JP.Mytrix.Statemachine.Game
             inputController.OnInputDownEvent += OnInputDownEvent;
 
             lastMoveTime = Time.realtimeSinceStartup;
+            base.Enter();
         }
 
         private void OnInputDownEvent(Inputs input)

@@ -6,6 +6,8 @@ namespace JP.Mytrix.Statemachine.Game
     {
         public override void Enter()
         {
+            base.Enter();
+
             tetrinoController.SpawnTetrino();
             gameStateMachine.ChangeTo(GameState.MoveTetrino);
         }
