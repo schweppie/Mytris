@@ -15,7 +15,7 @@ MonoBehaviour:
   BlockConfig: {fileID: 11400000, guid: cd800b487373d8346a9b8ef8d8c0782f, type: 2}
   TetrinoVisualizer: {fileID: 7647352359768446191, guid: 6d55d0c526f664544bdd30c0ea2cfae3,
     type: 3}
-  Color: {r: 0.9339623, g: 0.30609122, b: 0.20705767, a: 1}
+  Color: {r: 0.5411765, g: 0.87843144, b: 0.14117648, a: 1}
   PatternWidth: 5
   PatternHeight: 5
   Patterns:

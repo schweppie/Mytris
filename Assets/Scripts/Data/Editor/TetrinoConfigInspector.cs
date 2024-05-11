@@ -57,7 +57,6 @@ namespace JP.Mytris.Data
                 }
                 GUILayout.EndHorizontal();
             }
-
         }
     }
 }
